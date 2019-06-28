@@ -1,0 +1,774 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Pure Scala &mdash; Stainless 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Stainless 0.1 documentation" href="index.html"/>
+        <link rel="next" title="Stainless Library" href="library.html"/>
+        <link rel="prev" title="Working With Existing Code" href="wrap.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Stainless
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installing Stainless</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Verifying Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial: Sorting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="verification.html">Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laws.html">Specifying Algebraic Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="imperative.html">Imperative</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ghost.html">Ghost Context</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wrap.html">Working With Existing Code</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Pure Scala</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#booleans">Booleans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#algebraic-data-types">Algebraic Data Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#abstract-classes">Abstract Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#case-classes">Case Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#case-objects">Case Objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#generics">Generics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#methods">Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#copy-method">Copy Method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#default-parameters">Default Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#specifications">Specifications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#preconditions">Preconditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#postconditions">Postconditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#body-assertions">Body Assertions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#expressions">Expressions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pattern-matching">Pattern matching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#values">Values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inner-functions">Inner Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#local-and-anonymous-classes">Local and Anonymous Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#predefined-types">Predefined Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tuplex">TupleX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#int">Int</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bigint">BigInt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#real">Real</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set">Set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#functional-array">Functional Array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#map">Map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#function">Function</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="library.html">Stainless Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="neon.html">Proving Theorems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="limitations.html">Limitations of Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="casestudies.html">Case Studies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals.html">Stainless’ Internals</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Stainless</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Pure Scala</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/purescala.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pure-scala">
+<span id="purescala"></span><h1>Pure Scala<a class="headerlink" href="#pure-scala" title="Permalink to this headline">¶</a></h1>
+<p>The input to Stainless is a purely functional <strong>subset</strong> of <a class="reference external" href="http://www.scala-lang.org/">Scala</a>, which we call
+<strong>Pure Scala</strong>. Constructs specific for Stainless are defined inside
+Stainless’s libraries in package <cite>stainless</cite> and its subpackages.
+Stainless invokes standard <cite>scalac</cite> compiler on the input file, then
+performs additional checks to ensure that the given program
+belongs to Pure Scala.</p>
+<p>Pure Scala supports two kinds of top-level declarations:</p>
+<ol class="arabic simple">
+<li>Algebraic Data Type (ADT) definitions in the form of an
+abstract class and case classes/objects</li>
+</ol>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">abstract</span> <span class="k">class</span> <span class="nc">MyList</span>
+<span class="k">case</span> <span class="k">object</span> <span class="nc">MyEmpty</span> <span class="k">extends</span> <span class="nc">MyList</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">MyCons</span><span class="o">(</span><span class="n">elem</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">,</span> <span class="n">rest</span><span class="k">:</span> <span class="kt">MyList</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">MyList</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Objects/modules, for grouping classes and functions</li>
+</ol>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">object</span> <span class="nc">Specs</span> <span class="o">{</span>
+   <span class="k">def</span> <span class="n">increment</span><span class="o">(</span><span class="n">a</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span><span class="k">:</span> <span class="kt">BigInt</span> <span class="o">=</span> <span class="o">{</span>
+      <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
+   <span class="o">}</span>
+
+   <span class="k">case</span> <span class="k">class</span> <span class="nc">Identifier</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="section" id="booleans">
+<h2>Booleans<a class="headerlink" href="#booleans" title="Permalink to this headline">¶</a></h2>
+<p>Booleans are used to express truth conditions in Stainless.
+Unlike some proof assistants, there is no separation
+at the type level between
+Boolean values and the truth conditions of conjectures
+and theorems.</p>
+<p>Typical propositional operations are available using Scala
+notation, along
+with a new shorthand for implication. The <cite>if</cite> expression
+is also present.</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">&amp;&amp;</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">||</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">==</span> <span class="n">b</span>
+<span class="o">!</span><span class="n">a</span>
+<span class="n">a</span> <span class="o">==&gt;</span> <span class="n">b</span> <span class="c1">// Stainless syntax for boolean implication</span>
+</pre></div>
+</div>
+<p>Stainless uses short-circuit interpretation of <cite>&amp;&amp;</cite>, <cite>||</cite>, and <cite>==&gt;</cite>,
+which evaluates the second argument only when needed:</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">&amp;&amp;</span> <span class="n">b</span>  <span class="o">===</span> <span class="k">if</span> <span class="o">(</span><span class="n">a</span><span class="o">)</span> <span class="n">b</span> <span class="k">else</span> <span class="kc">false</span>
+
+<span class="n">a</span> <span class="o">||</span> <span class="n">b</span>  <span class="o">===</span> <span class="k">if</span> <span class="o">(</span><span class="n">a</span><span class="o">)</span> <span class="kc">true</span> <span class="k">else</span> <span class="n">b</span>
+
+<span class="n">a</span> <span class="o">==&gt;</span> <span class="n">b</span> <span class="o">===</span> <span class="k">if</span> <span class="o">(</span><span class="n">a</span><span class="o">)</span> <span class="n">b</span> <span class="k">else</span> <span class="kc">true</span>
+</pre></div>
+</div>
+<p>This aspect is important because of:</p>
+<ol class="arabic simple">
+<li>evaluation of expressions, which is kept compatible with Scala</li>
+</ol>
+<p>2. verification condition generation for safety: arguments of Boolean operations
+may be operations with preconditions; these preconditions apply only in case
+that the corresponding argument is evaluated.</p>
+<ol class="arabic simple" start="3">
+<li>termination checking, which takes into account that only one of the paths in an if expression is evaluated for a given truth value of the condition.</li>
+</ol>
+</div>
+<div class="section" id="algebraic-data-types">
+<span id="adts"></span><h2>Algebraic Data Types<a class="headerlink" href="#algebraic-data-types" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="abstract-classes">
+<h3>Abstract Classes<a class="headerlink" href="#abstract-classes" title="Permalink to this headline">¶</a></h3>
+<p>ADT roots need to be defined as abstract, unless the ADT is defined with only one case class/object. Unlike in Scala, abstract classes cannot define fields or constructor arguments.</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">abstract</span> <span class="k">class</span> <span class="nc">MyType</span>
+</pre></div>
+</div>
+<p>An abstract class can be extended by other abstract classes.</p>
+</div>
+<div class="section" id="case-classes">
+<h3>Case Classes<a class="headerlink" href="#case-classes" title="Permalink to this headline">¶</a></h3>
+<p>The abstract root can also be extended by a case-class, defining several fields:</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">case</span> <span class="k">class</span> <span class="nc">MyCase1</span><span class="o">(</span><span class="n">f</span><span class="k">:</span> <span class="kt">Type</span><span class="o">,</span> <span class="n">f2</span><span class="k">:</span> <span class="kt">MyType</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">MyType</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">MyCase2</span><span class="o">(</span><span class="n">f</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">MyType</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can also define single case-class, for Tuple-like structures.</p>
+</div>
+</div>
+<div class="section" id="case-objects">
+<h3>Case Objects<a class="headerlink" href="#case-objects" title="Permalink to this headline">¶</a></h3>
+<p>It is also possible to defined case objects, without fields:</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">case</span> <span class="k">object</span> <span class="nc">BaseCase</span> <span class="k">extends</span> <span class="nc">MyType</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="generics">
+<h2>Generics<a class="headerlink" href="#generics" title="Permalink to this headline">¶</a></h2>
+<p>Stainless supports type parameters for classes and functions.</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">object</span> <span class="nc">Test</span> <span class="o">{</span>
+  <span class="k">abstract</span> <span class="k">class</span> <span class="nc">List</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span>
+  <span class="nc">case</span> <span class="k">class</span> <span class="nc">Cons</span><span class="o">[</span><span class="kt">T</span><span class="o">](</span><span class="n">hd</span><span class="k">:</span> <span class="kt">T</span><span class="o">,</span> <span class="n">tl</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">T</span><span class="o">])</span> <span class="k">extends</span> <span class="nc">List</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span>
+  <span class="k">case</span> <span class="k">class</span> <span class="nc">Nil</span><span class="o">[</span><span class="kt">T</span><span class="o">]()</span> <span class="k">extends</span> <span class="nc">List</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span>
+
+  <span class="k">def</span> <span class="n">contains</span><span class="o">[</span><span class="kt">T</span><span class="o">](</span><span class="n">l</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">T</span><span class="o">],</span> <span class="n">el</span><span class="k">:</span> <span class="kt">T</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Type parameters are always <strong>invariant</strong>. It is not possible to define ADTs like:</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">abstract</span> <span class="k">class</span> <span class="nc">List</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span>
+<span class="nc">case</span> <span class="k">class</span> <span class="nc">Cons</span><span class="o">[</span><span class="kt">T</span><span class="o">](</span><span class="n">hd</span><span class="k">:</span> <span class="kt">T</span><span class="o">,</span> <span class="n">tl</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">T</span><span class="o">])</span> <span class="k">extends</span> <span class="nc">List</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span>
+<span class="k">case</span> <span class="k">object</span> <span class="nc">Nil</span> <span class="k">extends</span> <span class="nc">List</span><span class="o">[</span><span class="kt">Nothing</span><span class="o">]</span>
+</pre></div>
+</div>
+<p class="last">Stainless, in fact, restricts type parameters to “simple hierarchies”,
+where subclasses define the same type parameters in the same order.</p>
+</div>
+</div>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<p>You can define methods in classes.</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">abstract</span> <span class="k">class</span> <span class="nc">List</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">contains</span><span class="o">(</span><span class="n">e</span><span class="k">:</span> <span class="kt">T</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span> <span class="o">..</span> <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Cons</span><span class="o">[</span><span class="kt">T</span><span class="o">](</span><span class="n">hd</span><span class="k">:</span> <span class="kt">T</span><span class="o">,</span> <span class="n">tl</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">T</span><span class="o">])</span> <span class="k">extends</span> <span class="nc">List</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span>
+<span class="k">case</span> <span class="k">object</span> <span class="nc">Nil</span> <span class="k">extends</span> <span class="nc">List</span><span class="o">[</span><span class="kt">Nothing</span><span class="o">]</span>
+
+<span class="k">def</span> <span class="n">test</span><span class="o">(</span><span class="n">a</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span> <span class="k">=</span> <span class="n">a</span><span class="o">.</span><span class="n">contains</span><span class="o">(</span><span class="mi">42</span><span class="o">)</span>
+</pre></div>
+</div>
+<p>It is possible to define abstract methods in abstract classes and implement them in case classes.
+Multiple layers of inheritance are allowed, as is the ability to override concrete methods.</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">abstract</span> <span class="k">class</span> <span class="nc">A</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">x</span><span class="o">(</span><span class="n">a</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span>
+<span class="o">}</span>
+
+<span class="k">abstract</span> <span class="k">class</span> <span class="nc">B</span> <span class="k">extends</span> <span class="n">A</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">x</span><span class="o">(</span><span class="n">a</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="n">require</span><span class="o">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
+    <span class="mi">42</span>
+  <span class="o">}</span> <span class="n">ensuring</span> <span class="o">{</span> <span class="k">_</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="k">case</span> <span class="k">class</span> <span class="nc">C</span><span class="o">(</span><span class="n">c</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">extends</span> <span class="n">B</span> <span class="o">{</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="n">x</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="n">require</span><span class="o">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">)</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="mi">0</span>
+    <span class="k">else</span> <span class="n">c</span> <span class="o">+</span> <span class="n">x</span><span class="o">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="o">)</span>
+  <span class="o">}</span> <span class="n">ensuring</span> <span class="o">(</span> <span class="k">_</span> <span class="o">==</span> <span class="n">c</span> <span class="o">*</span> <span class="n">i</span> <span class="o">)</span>
+<span class="o">}</span>
+
+<span class="k">case</span> <span class="k">class</span> <span class="nc">D</span><span class="o">()</span> <span class="k">extends</span> <span class="n">B</span>
+</pre></div>
+</div>
+<p>It is also possible to call methods of a superclass with the <code class="docutils literal notranslate"><span class="pre">super</span></code> keyword.</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">sealed</span> <span class="k">abstract</span> <span class="k">class</span> <span class="nc">Base</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">double</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span><span class="k">:</span> <span class="kt">BigInt</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="o">}</span>
+
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Override</span><span class="o">()</span> <span class="k">extends</span> <span class="nc">Base</span> <span class="o">{</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="n">double</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span><span class="k">:</span> <span class="kt">BigInt</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="n">double</span><span class="o">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="mi">42</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="section" id="copy-method">
+<h3>Copy Method<a class="headerlink" href="#copy-method" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">copy</span></code> method of classes with immutable fields is extracted as well,
+and ensures that the class invariant (if any) is maintained by requiring it
+to be satisfied as a precondition.</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">case</span> <span class="k">class</span> <span class="nc">Foo</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">require</span><span class="o">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="k">def</span> <span class="n">prop</span><span class="o">(</span><span class="n">foo</span><span class="k">:</span> <span class="kt">Foo</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="n">require</span><span class="o">(</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="o">)</span>
+  <span class="n">foo</span><span class="o">.</span><span class="n">copy</span><span class="o">(</span><span class="n">x</span> <span class="k">=</span> <span class="n">y</span><span class="o">)</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The example above would not verify without the precondition in function <code class="docutils literal notranslate"><span class="pre">prop</span></code>,
+as <code class="docutils literal notranslate"><span class="pre">Foo</span></code> require its field <code class="docutils literal notranslate"><span class="pre">x</span></code> to be positive.</p>
+</div>
+</div>
+<div class="section" id="default-parameters">
+<h3>Default Parameters<a class="headerlink" href="#default-parameters" title="Permalink to this headline">¶</a></h3>
+<p>Functions and methods can have default values for their parameters.</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="n">test</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">21</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span>
+
+<span class="n">assert</span><span class="o">(</span><span class="n">test</span><span class="o">()</span> <span class="o">==</span> <span class="mi">42</span><span class="o">)</span> <span class="c1">// valid</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="specifications">
+<h2>Specifications<a class="headerlink" href="#specifications" title="Permalink to this headline">¶</a></h2>
+<p>Stainless supports three kinds of specifications to functions and methods:</p>
+<div class="section" id="preconditions">
+<h3>Preconditions<a class="headerlink" href="#preconditions" title="Permalink to this headline">¶</a></h3>
+<p>Preconditions constraint the argument and is expressed using <cite>require</cite>. It should hold for all calls to the function.</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="n">foo</span><span class="o">(</span><span class="n">a</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="n">require</span><span class="o">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="o">)</span>
+  <span class="o">...</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="postconditions">
+<h3>Postconditions<a class="headerlink" href="#postconditions" title="Permalink to this headline">¶</a></h3>
+<p>Postconditions constraint the resulting value, and is expressed using <cite>ensuring</cite>:</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="n">foo</span><span class="o">(</span><span class="n">a</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="o">}</span> <span class="n">ensuring</span> <span class="o">{</span> <span class="n">res</span> <span class="k">=&gt;</span> <span class="n">res</span> <span class="o">&gt;</span> <span class="n">a</span> <span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="body-assertions">
+<h3>Body Assertions<a class="headerlink" href="#body-assertions" title="Permalink to this headline">¶</a></h3>
+<p>Assertions constrain intermediate expressions within the body of a function.</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="n">foo</span><span class="o">(</span><span class="n">a</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">b</span> <span class="k">=</span> <span class="o">-</span><span class="n">a</span>
+  <span class="n">assert</span><span class="o">(</span><span class="n">a</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">b</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">,</span> <span class="s">&quot;This will fail for -2^31&quot;</span><span class="o">)</span>
+  <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>The error description (last argument of <code class="docutils literal notranslate"><span class="pre">assert</span></code>) is optional.</p>
+</div>
+</div>
+<div class="section" id="expressions">
+<h2>Expressions<a class="headerlink" href="#expressions" title="Permalink to this headline">¶</a></h2>
+<p>Stainless supports most purely-functional Scala expressions:</p>
+<div class="section" id="pattern-matching">
+<h3>Pattern matching<a class="headerlink" href="#pattern-matching" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="n">expr</span> <span class="k">match</span> <span class="o">{</span>
+  <span class="c1">// Simple (nested) patterns:</span>
+  <span class="k">case</span> <span class="nc">CaseClass</span><span class="o">(</span> <span class="o">..</span> <span class="o">,</span> <span class="o">..</span> <span class="o">,</span> <span class="o">..)</span> <span class="k">=&gt;</span> <span class="o">...</span>
+  <span class="k">case</span> <span class="n">v</span> <span class="k">@</span> <span class="nc">CaseClass</span><span class="o">(</span> <span class="o">..</span> <span class="o">,</span> <span class="o">..</span> <span class="o">,</span> <span class="o">..)</span> <span class="k">=&gt;</span> <span class="o">...</span>
+  <span class="k">case</span> <span class="n">v</span> <span class="k">:</span> <span class="kt">CaseClass</span> <span class="o">=&gt;</span> <span class="o">...</span>
+  <span class="k">case</span> <span class="o">(</span><span class="n">t1</span><span class="o">,</span> <span class="n">t2</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="o">...</span>
+  <span class="k">case</span> <span class="mi">42</span> <span class="k">=&gt;</span> <span class="o">...</span>
+  <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="o">...</span>
+
+  <span class="c1">// can also be guarded, e.g.</span>
+  <span class="k">case</span> <span class="nc">CaseClass</span><span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="n">c</span><span class="o">)</span> <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span> <span class="k">=&gt;</span> <span class="o">...</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Custom pattern matching with <code class="docutils literal notranslate"><span class="pre">unapply</span></code> methods are also supported:</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">object</span> <span class="nc">::</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">unapply</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">l</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[(</span><span class="kt">A</span>, <span class="kt">List</span><span class="o">[</span><span class="kt">A</span><span class="o">])]</span> <span class="k">=</span> <span class="n">l</span> <span class="k">match</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">Nil</span><span class="o">()</span> <span class="k">=&gt;</span> <span class="nc">None</span><span class="o">()</span>
+    <span class="k">case</span> <span class="nc">Cons</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">xs</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Some</span><span class="o">((</span><span class="n">x</span><span class="o">,</span> <span class="n">xs</span><span class="o">))</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="k">def</span> <span class="n">empty</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">l</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span> <span class="k">=</span> <span class="n">l</span> <span class="k">match</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="n">x</span> <span class="o">::</span> <span class="n">xs</span> <span class="k">=&gt;</span> <span class="kc">false</span>
+  <span class="k">case</span> <span class="nc">Nil</span><span class="o">()</span> <span class="k">=&gt;</span> <span class="kc">true</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="values">
+<h3>Values<a class="headerlink" href="#values" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">val</span> <span class="n">x</span> <span class="k">=</span> <span class="o">...</span>
+
+<span class="k">val</span> <span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="k">=</span> <span class="o">...</span>
+
+<span class="k">val</span> <span class="nc">Cons</span><span class="o">(</span><span class="n">h</span><span class="o">,</span> <span class="k">_</span><span class="o">)</span> <span class="k">=</span> <span class="o">...</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The latter two cases are actually syntactic sugar for pattern matching with one case.</p>
+</div>
+</div>
+<div class="section" id="inner-functions">
+<h3>Inner Functions<a class="headerlink" href="#inner-functions" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="n">foo</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">y</span> <span class="k">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+  <span class="k">def</span> <span class="n">bar</span><span class="o">(</span><span class="n">z</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+     <span class="n">z</span> <span class="o">+</span> <span class="n">y</span>
+  <span class="o">}</span>
+  <span class="n">bar</span><span class="o">(</span><span class="mi">42</span><span class="o">)</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="local-and-anonymous-classes">
+<h3>Local and Anonymous Classes<a class="headerlink" href="#local-and-anonymous-classes" title="Permalink to this headline">¶</a></h3>
+<p>Functions and methods can declare local classes, which can close over
+the fields of the enclosing class, as well as the parameters of the enclosing
+function or method.</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">abstract</span> <span class="k">class</span> <span class="nc">Foo</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">bar</span><span class="k">:</span> <span class="kt">Int</span>
+<span class="o">}</span>
+
+<span class="k">def</span> <span class="n">makeFoo</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Foo</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="k">class</span> <span class="nc">Local</span><span class="o">()</span> <span class="k">extends</span> <span class="nc">Foo</span> <span class="o">{</span>
+    <span class="k">def</span> <span class="n">bar</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">x</span>
+  <span class="o">}</span>
+  <span class="nc">Local</span><span class="o">()</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Functions and methods which return an instance of a local class
+must have an explicit return type, which will typically be that of the parent class.
+Otherwise, a structural type will be inferred by the Scala compiler, and those are
+currently unsupported.</p>
+</div>
+<p>Anonymous classes with an explicit parent are supported as well:</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">abstract</span> <span class="k">class</span> <span class="nc">Foo</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">bar</span><span class="k">:</span> <span class="kt">Int</span>
+<span class="o">}</span>
+
+<span class="k">def</span> <span class="n">makeFoo</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Foo</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Foo</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">bar</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">x</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Anonymous classes cannot declare more public members than their parent class,
+ie. the following is not supported:</p>
+</div>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">abstract</span> <span class="k">class</span> <span class="nc">Foo</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">bar</span><span class="k">:</span> <span class="kt">Int</span>
+<span class="o">}</span>
+
+<span class="k">def</span> <span class="n">makeFoo</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Foo</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Foo</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">bar</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">x</span>
+  <span class="k">def</span> <span class="n">hi</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">&quot;Hello, world&quot;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="predefined-types">
+<h2>Predefined Types<a class="headerlink" href="#predefined-types" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="tuplex">
+<h3>TupleX<a class="headerlink" href="#tuplex" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">val</span> <span class="n">x</span> <span class="k">=</span> <span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">y</span> <span class="k">=</span> <span class="mi">1</span> <span class="o">-&gt;</span> <span class="mi">2</span> <span class="c1">// alternative Scala syntax for Tuple2</span>
+<span class="n">x</span><span class="o">.</span><span class="n">_1</span> <span class="c1">// == 1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="int">
+<h3>Int<a class="headerlink" href="#int" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">-</span> <span class="n">b</span>
+<span class="o">-</span><span class="n">a</span>
+<span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">/</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">%</span> <span class="n">b</span> <span class="c1">// a modulo b</span>
+<span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">&lt;=</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">&gt;=</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">==</span> <span class="n">b</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Integers are treated as 32bits integers and are subject to overflows.</p>
+</div>
+</div>
+<div class="section" id="bigint">
+<h3>BigInt<a class="headerlink" href="#bigint" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">val</span> <span class="n">a</span> <span class="k">=</span> <span class="nc">BigInt</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">b</span> <span class="k">=</span> <span class="nc">BigInt</span><span class="o">(</span><span class="mi">3</span><span class="o">)</span>
+
+<span class="o">-</span><span class="n">a</span>
+<span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">-</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">/</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">%</span> <span class="n">b</span> <span class="c1">// a modulo b</span>
+<span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">&lt;=</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">&gt;=</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">==</span> <span class="n">b</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">BigInt are mathematical integers (arbitrary size, no overflows).</p>
+</div>
+</div>
+<div class="section" id="real">
+<h3>Real<a class="headerlink" href="#real" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Real</span></code> represents the mathematical real numbers (different from floating points). It is an
+extension to Scala which is meant to write programs closer to their true semantics.</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">val</span> <span class="n">a</span><span class="k">:</span> <span class="kt">Real</span> <span class="o">=</span> <span class="nc">Real</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">b</span><span class="k">:</span> <span class="kt">Real</span> <span class="o">=</span> <span class="nc">Real</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">5</span><span class="o">)</span> <span class="c1">// 3/5</span>
+
+<span class="o">-</span><span class="n">a</span>
+<span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">-</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">/</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">&lt;=</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">&gt;=</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">==</span> <span class="n">b</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Real have infinite precision, which means their properties differ from <code class="docutils literal notranslate"><span class="pre">Double</span></code>.
+For example, the following holds:</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="n">associativity</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Real</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">Real</span><span class="o">,</span> <span class="n">z</span><span class="k">:</span> <span class="kt">Real</span><span class="o">)</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="o">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">)</span> <span class="o">+</span> <span class="n">z</span> <span class="o">==</span> <span class="n">x</span> <span class="o">+</span> <span class="o">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">z</span><span class="o">)</span>
+<span class="o">}</span> <span class="n">holds</span>
+</pre></div>
+</div>
+<p class="last">While it does not hold with floating point arithmetic.</p>
+</div>
+</div>
+<div class="section" id="set">
+<h3>Set<a class="headerlink" href="#set" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">import</span> <span class="nn">stainless.lang.Set</span> <span class="c1">// Required to have support for Sets</span>
+
+<span class="k">val</span> <span class="n">s1</span> <span class="k">=</span> <span class="nc">Set</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">,</span><span class="mi">1</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">s2</span> <span class="k">=</span> <span class="nc">Set</span><span class="o">[</span><span class="kt">Int</span><span class="o">]()</span>
+
+<span class="n">s1</span> <span class="o">++</span> <span class="n">s2</span> <span class="c1">// Set union</span>
+<span class="n">s1</span> <span class="o">&amp;</span> <span class="n">s2</span>  <span class="c1">// Set intersection</span>
+<span class="n">s1</span> <span class="o">--</span> <span class="n">s2</span> <span class="c1">// Set difference</span>
+<span class="n">s1</span> <span class="n">subsetOf</span> <span class="n">s2</span>
+<span class="n">s1</span> <span class="n">contains</span> <span class="mi">42</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="functional-array">
+<h3>Functional Array<a class="headerlink" href="#functional-array" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">val</span> <span class="n">a</span> <span class="k">=</span> <span class="nc">Array</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">)</span>
+
+<span class="n">a</span><span class="o">(</span><span class="n">index</span><span class="o">)</span>
+<span class="n">a</span><span class="o">.</span><span class="n">updated</span><span class="o">(</span><span class="n">index</span><span class="o">,</span> <span class="n">value</span><span class="o">)</span>
+<span class="n">a</span><span class="o">.</span><span class="n">length</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="map">
+<h3>Map<a class="headerlink" href="#map" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">import</span> <span class="nn">stainless.lang.Map</span> <span class="c1">// Required to have support for Maps</span>
+
+<span class="k">val</span>  <span class="n">m</span> <span class="k">=</span> <span class="nc">Map</span><span class="o">[</span><span class="kt">Int</span>, <span class="kt">Boolean</span><span class="o">](</span><span class="mi">42</span> <span class="o">-&gt;</span> <span class="kc">false</span><span class="o">)</span>
+
+<span class="n">m</span><span class="o">(</span><span class="n">index</span><span class="o">)</span>
+<span class="n">m</span> <span class="n">isDefinedAt</span> <span class="n">index</span>
+<span class="n">m</span> <span class="n">contains</span> <span class="n">index</span>
+<span class="n">m</span><span class="o">.</span><span class="n">updated</span><span class="o">(</span><span class="n">index</span><span class="o">,</span> <span class="n">value</span><span class="o">)</span>
+<span class="n">m</span> <span class="o">+</span> <span class="o">(</span><span class="n">index</span> <span class="o">-&gt;</span> <span class="n">value</span><span class="o">)</span>
+<span class="n">m</span> <span class="o">+</span> <span class="o">(</span><span class="n">value</span><span class="o">,</span> <span class="n">index</span><span class="o">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="n">index</span><span class="o">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">getOrElse</span><span class="o">(</span><span class="n">index</span><span class="o">,</span> <span class="n">value2</span><span class="o">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="function">
+<h3>Function<a class="headerlink" href="#function" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">val</span> <span class="n">f1</span> <span class="k">=</span> <span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>                 <span class="c1">// simple anonymous function</span>
+
+<span class="k">val</span> <span class="n">y</span>  <span class="k">=</span> <span class="mi">2</span>
+<span class="k">val</span> <span class="n">f2</span> <span class="k">=</span> <span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">f1</span><span class="o">(</span><span class="n">x</span><span class="o">)</span> <span class="o">+</span> <span class="n">y</span>             <span class="c1">// closes over `f1` and `y`</span>
+<span class="k">val</span> <span class="n">f3</span> <span class="k">=</span> <span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="k">if</span> <span class="o">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="n">f1</span> <span class="k">else</span> <span class="n">f2</span> <span class="c1">// anonymous function returning another function</span>
+
+<span class="n">list</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">f1</span><span class="o">)</span>      <span class="c1">// functions can be passed around ...</span>
+<span class="n">list</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">f3</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span> <span class="k">_</span><span class="o">)</span> <span class="c1">// ... and partially applied</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">No operators are defined on function-typed expressions, so specification is
+currently quite limited.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="library.html" class="btn btn-neutral float-right" title="Stainless Library" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="wrap.html" class="btn btn-neutral" title="Working With Existing Code" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2009-2019 EPFL, Lausanne.
+      Last updated on Jun 28, 2019.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

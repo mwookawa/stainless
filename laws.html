@@ -1,0 +1,635 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Specifying Algebraic Properties &mdash; Stainless 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Stainless 0.1 documentation" href="index.html"/>
+        <link rel="next" title="Imperative" href="imperative.html"/>
+        <link rel="prev" title="Verification" href="verification.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Stainless
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installing Stainless</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Verifying Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial: Sorting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="verification.html">Verification</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Specifying Algebraic Properties</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#typeclasses">Typeclasses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#typeclass-inheritance">Typeclass inheritance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#associated-methods">Associated methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#coherence">Coherence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#under-the-hood">Under the hood</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="imperative.html">Imperative</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ghost.html">Ghost Context</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wrap.html">Working With Existing Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="purescala.html">Pure Scala</a></li>
+<li class="toctree-l1"><a class="reference internal" href="library.html">Stainless Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="neon.html">Proving Theorems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="limitations.html">Limitations of Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="casestudies.html">Case Studies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals.html">Stainless’ Internals</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Stainless</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Specifying Algebraic Properties</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/laws.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="specifying-algebraic-properties">
+<span id="laws"></span><h1>Specifying Algebraic Properties<a class="headerlink" href="#specifying-algebraic-properties" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Many datatypes that programmers deal with on a day-to-day basis often provide
+the same set of operations, for example:</p>
+<ul class="simple">
+<li>They can be tested for equality to some other value</li>
+<li>They can be ordered (partially or totally)</li>
+<li>They can be composed together</li>
+<li>They can be added or multiplied together</li>
+<li>They have an inverse with respect to some operation</li>
+</ul>
+<p>Because those are very common properties, it is often useful to be able to
+abstract over them. In fact, each of these properties corresponds to an
+algebraic structure, and is governed by the set of laws which allow the
+programmer to reason at a higher level of abstraction, and to be able
+to rely on the behavior specified by the laws associated with the structure.</p>
+<p>While these properties can be modeled and implemented using Java interfaces,
+modern programming languages such as Scala or Haskell provide a better
+mechanism for expressing the properties: typeclasses.</p>
+</div>
+<div class="section" id="typeclasses">
+<h2>Typeclasses<a class="headerlink" href="#typeclasses" title="Permalink to this headline">¶</a></h2>
+<p>Typeclasses were introduced by Wadler &amp; Blott <a class="reference internal" href="#wb89" id="id1">[WB89]</a> as an extension
+to the Hindley/Milner type system to implement a certain kind of overloading,
+known as <em>ad-hoc</em> polymorphism.</p>
+<p>A typeclass is identified by its name, and is associated with a set of
+(usually polymorphic) functions signatures, its <em>methods</em>.</p>
+<p>It can then be <em>instantiated</em> at various types, given that the user is able
+to provide a concrete implementation for each method. A user can then apply
+these methods to any type for which there is a corresponding instance, which
+essentially corresponds to <em>overloading</em>.</p>
+<p>Using typeclasses, one can model algebraic properties of datatypes in a fairly natural way.
+Here is for example, the definition and implementation of a <code class="docutils literal notranslate"><span class="pre">Monoid</span></code>, ie. a typeclass
+for datatypes which can be mashed together associatively, and which have an
+identity element w.r.t. to this operation:</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">abstract</span> <span class="k">class</span> <span class="nc">Monoid</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">empty</span><span class="k">:</span> <span class="kt">A</span>
+  <span class="k">def</span> <span class="n">append</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">A</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">A</span>
+
+  <span class="nd">@law</span>
+  <span class="k">def</span> <span class="n">law_leftIdentity</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="n">append</span><span class="o">(</span><span class="n">empty</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span> <span class="o">==</span> <span class="n">x</span>
+  <span class="o">}</span>
+
+  <span class="nd">@law</span>
+  <span class="k">def</span> <span class="n">law_rightIdentity</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="n">append</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">empty</span><span class="o">)</span> <span class="o">==</span> <span class="n">x</span>
+  <span class="o">}</span>
+
+  <span class="nd">@law</span>
+  <span class="k">def</span> <span class="n">law_associativity</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">A</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">A</span><span class="o">,</span> <span class="n">z</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="n">append</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">append</span><span class="o">(</span><span class="n">y</span><span class="o">,</span> <span class="n">z</span><span class="o">))</span> <span class="o">==</span> <span class="n">append</span><span class="o">(</span><span class="n">append</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">),</span> <span class="n">z</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="k">implicit</span> <span class="k">val</span> <span class="n">bigIntAdditiveMonoid</span><span class="k">:</span> <span class="kt">Monoid</span><span class="o">[</span><span class="kt">BigInt</span><span class="o">]</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Monoid</span><span class="o">[</span><span class="kt">BigInt</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="n">empty</span><span class="k">:</span> <span class="kt">BigInt</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="n">append</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span><span class="k">:</span> <span class="kt">BigInt</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Here, the abstract class specifies the two abstract operations which are required,
+but also the associated laws that the implementation of these operations must
+satisfy for the datatype to form a valid monoid.</p>
+<p>Stainless will then ensure that the implementation of <code class="docutils literal notranslate"><span class="pre">Monoid</span></code> for the <code class="docutils literal notranslate"><span class="pre">BigInt</span></code> type satisfy
+those laws. In this case, the above definition of <code class="docutils literal notranslate"><span class="pre">bigIntAdditiveMonoid</span></code> will generate the
+following verification conditions::</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  ┌───────────────────┐
+╔═╡ stainless summary ╞══════════════════════════════════════════════════════════════════════╗
+║ └───────────────────┘                                                                      ║
+║ law_associativity     law              valid   nativez3   ../../test.scala:25:3     0.052  ║
+║ law_leftIdentity      law              valid   nativez3   ../../test.scala:25:3     0.037  ║
+║ law_rightIdentity     law              valid   nativez3   ../../test.scala:25:3     0.029  ║
+╟--------------------------------------------------------------------------------------------╢
+║ total: 9    valid: 9    (0 from cache) invalid: 0    unknown: 0    time:   0.729           ║
+╚════════════════════════════════════════════════════════════════════════════════════════════╝
+</pre></div>
+</div>
+<p>Armed with the knowledge that our <code class="docutils literal notranslate"><span class="pre">Monoid</span></code> will always be lawful, one can now fearlessly write
+the <code class="docutils literal notranslate"><span class="pre">foldMap</span></code> function, and get the expected result:</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="n">foldMap</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">M</span><span class="o">](</span><span class="n">xs</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">A</span><span class="o">])(</span><span class="n">f</span><span class="k">:</span> <span class="kt">A</span> <span class="o">=&gt;</span> <span class="n">M</span><span class="o">)(</span><span class="k">implicit</span> <span class="n">M</span><span class="k">:</span> <span class="kt">Monoid</span><span class="o">[</span><span class="kt">M</span><span class="o">])</span><span class="k">:</span> <span class="kt">M</span> <span class="o">=</span> <span class="n">xs</span> <span class="k">match</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="nc">Nil</span><span class="o">()</span> <span class="k">=&gt;</span> <span class="n">M</span><span class="o">.</span><span class="n">empty</span>
+  <span class="k">case</span> <span class="nc">Cons</span><span class="o">(</span><span class="n">y</span><span class="o">,</span> <span class="n">ys</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">M</span><span class="o">.</span><span class="n">append</span><span class="o">(</span><span class="n">f</span><span class="o">(</span><span class="n">y</span><span class="o">),</span> <span class="n">foldMap</span><span class="o">(</span><span class="n">ys</span><span class="o">)(</span><span class="n">f</span><span class="o">))</span>
+<span class="o">}</span>
+
+<span class="k">def</span> <span class="n">sumBigInt</span><span class="o">(</span><span class="n">xs</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">BigInt</span><span class="o">])</span><span class="k">:</span> <span class="kt">BigInt</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="n">foldMap</span><span class="o">(</span><span class="n">xs</span><span class="o">)(</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="n">x</span><span class="o">)</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Sometimes, Stainless will not be able to automatically prove that an instance is lawful,
+for example when the property of interest involves a recursive definition over an inductive
+data type, as in the following code:</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">sealed</span> <span class="k">abstract</span> <span class="k">class</span> <span class="nc">Nat</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="o">+(</span><span class="n">m</span><span class="k">:</span> <span class="kt">Nat</span><span class="o">)</span><span class="k">:</span> <span class="kt">Nat</span> <span class="o">=</span> <span class="k">this</span> <span class="k">match</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">Zero</span> <span class="k">=&gt;</span> <span class="n">m</span>
+    <span class="k">case</span> <span class="nc">Succ</span><span class="o">(</span><span class="n">n</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Succ</span><span class="o">(</span><span class="n">n</span> <span class="o">+</span> <span class="n">m</span><span class="o">)</span>
+  <span class="o">}</span>
+
+  <span class="k">def</span> <span class="o">*(</span><span class="n">m</span><span class="k">:</span> <span class="kt">Nat</span><span class="o">)</span><span class="k">:</span> <span class="kt">Nat</span> <span class="o">=</span> <span class="k">this</span> <span class="k">match</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">Zero</span> <span class="k">=&gt;</span> <span class="nc">Zero</span>
+    <span class="k">case</span> <span class="nc">Succ</span><span class="o">(</span><span class="n">n</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">n</span> <span class="o">*</span> <span class="n">m</span> <span class="o">+</span> <span class="n">m</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="k">final</span> <span class="k">case</span> <span class="k">object</span> <span class="nc">Zero</span> <span class="k">extends</span> <span class="nc">Nat</span>
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">Succ</span><span class="o">(</span><span class="n">prev</span><span class="k">:</span> <span class="kt">Nat</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Nat</span>
+
+<span class="k">final</span> <span class="k">val</span> <span class="nc">One</span> <span class="k">=</span> <span class="nc">Succ</span><span class="o">(</span><span class="nc">Zero</span><span class="o">)</span>
+
+<span class="k">implicit</span> <span class="k">def</span> <span class="n">natAdditiveMonoid</span><span class="k">:</span> <span class="kt">Monoid</span><span class="o">[</span><span class="kt">Nat</span><span class="o">]</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Monoid</span><span class="o">[</span><span class="kt">Nat</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">empty</span><span class="k">:</span> <span class="kt">nat</span> <span class="o">=</span> <span class="nc">Zero</span>
+  <span class="k">def</span> <span class="n">append</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Nat</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">Nat</span><span class="o">)</span><span class="k">:</span> <span class="kt">Nat</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>To help Stainless out, one needs to prove that <code class="docutils literal notranslate"><span class="pre">Zero</span></code> indeed the right identity of <code class="docutils literal notranslate"><span class="pre">+</span></code>,
+as well as the associativity of the latter.</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="nd">@induct</span>
+<span class="k">def</span> <span class="n">lemma_rightIdentity_plus</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Nat</span><span class="o">)</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="n">x</span> <span class="o">+</span> <span class="nc">Zero</span> <span class="o">==</span> <span class="n">x</span>
+<span class="o">}.</span><span class="n">holds</span>
+
+<span class="nd">@induct</span>
+<span class="k">def</span> <span class="n">lemma_associativity_plus</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Nat</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">Nat</span><span class="o">,</span> <span class="n">z</span><span class="k">:</span> <span class="kt">Nat</span><span class="o">)</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="n">x</span> <span class="o">+</span> <span class="o">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">z</span><span class="o">)</span> <span class="o">==</span> <span class="o">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">)</span> <span class="o">+</span> <span class="n">z</span>
+<span class="o">}.</span><span class="n">holds</span>
+</pre></div>
+</div>
+<p>One can then override the law of interest, and instantiate the lemma over the relevant parameters:</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">implicit</span> <span class="k">def</span> <span class="n">natAdditiveMonoid</span><span class="k">:</span> <span class="kt">Monoid</span><span class="o">[</span><span class="kt">Nat</span><span class="o">]</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Monoid</span><span class="o">[</span><span class="kt">Nat</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">empty</span><span class="k">:</span> <span class="kt">nat</span> <span class="o">=</span> <span class="nc">Zero</span>
+  <span class="k">def</span> <span class="n">append</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Nat</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">Nat</span><span class="o">)</span><span class="k">:</span> <span class="kt">Nat</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+
+  <span class="k">override</span> <span class="k">def</span> <span class="n">law_rightIdentity</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Nat</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="n">law_rightIdentity</span><span class="o">(</span><span class="n">x</span><span class="o">)</span> <span class="n">because</span> <span class="n">lemma_rightIdentity_plus</span><span class="o">(</span><span class="n">x</span><span class="o">)</span>
+  <span class="o">}</span>
+
+  <span class="k">override</span> <span class="k">def</span> <span class="n">law_associativity</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Nat</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">Nat</span><span class="o">,</span> <span class="n">z</span><span class="k">:</span> <span class="kt">Nat</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="n">law_associativity</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">z</span><span class="o">)</span> <span class="n">because</span> <span class="n">lemma_associativity_plus</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">z</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>With these modifications, the example goes through without a hitch.</p>
+</div>
+<div class="section" id="typeclass-inheritance">
+<h2>Typeclass inheritance<a class="headerlink" href="#typeclass-inheritance" title="Permalink to this headline">¶</a></h2>
+<p>Some algebraic structures can be defined as some other algebraic structure plus some additional
+operations and/or laws, eg. a monoid can be seen as a semigroup with identity.</p>
+<p>In Scala, typeclasses allow to represent such relationship between algebraic structures by mean of inheritance.</p>
+<p>Let’s take for example the <code class="docutils literal notranslate"><span class="pre">Ord</span></code> typeclass, which describes totally ordered datatypes.</p>
+<p>This class is defined as follows:</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">trait</span> <span class="nc">Eq</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">equals</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">A</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Boolean</span>
+<span class="o">}</span>
+
+<span class="k">trait</span> <span class="nc">Ord</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="nc">extends</span> <span class="nc">Eq</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">lessThanEq</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">A</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Boolean</span>
+
+  <span class="k">def</span> <span class="n">lessThan</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">A</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="n">lessThanEq</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">equals</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>This can also be read as: if <code class="docutils literal notranslate"><span class="pre">A</span></code> is an instance of <code class="docutils literal notranslate"><span class="pre">Ord</span></code>, then it also is a instance of <code class="docutils literal notranslate"><span class="pre">Eq</span></code>.</p>
+</div>
+<div class="section" id="associated-methods">
+<h2>Associated methods<a class="headerlink" href="#associated-methods" title="Permalink to this headline">¶</a></h2>
+<p>On top of abstract operations, a typeclass can also introduces concrete methods which
+do not need to (but can) be re-defined by the programmer at instance declaration time,
+just like the <code class="docutils literal notranslate"><span class="pre">lessThan</span></code> method of the <code class="docutils literal notranslate"><span class="pre">Ord</span></code> class above.</p>
+<p>While such methods could be defined as a standalone function with an <code class="docutils literal notranslate"><span class="pre">Ord</span></code> constraint,
+having it be a part of the class allows users to override it with e.g. a more efficient
+implementation specific to the datatype they are instantiating the class for, as shown below:</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">case</span> <span class="k">object</span> <span class="nc">BigIntOrd</span> <span class="k">extends</span> <span class="nc">Ord</span><span class="o">[</span><span class="kt">BigInt</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">equal</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span> <span class="k">=</span> <span class="n">x</span> <span class="o">==</span> <span class="n">y</span>
+  <span class="k">def</span> <span class="n">lessThanEq</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span> <span class="k">=</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">y</span>
+
+  <span class="k">override</span> <span class="k">def</span> <span class="n">lessThan</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">y</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="coherence">
+<h2>Coherence<a class="headerlink" href="#coherence" title="Permalink to this headline">¶</a></h2>
+<p>Let’s now look at an issue that might arise when working with typeclasses in Scala.</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">abstract</span> <span class="k">class</span> <span class="nc">Monoid</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">empty</span><span class="k">:</span> <span class="kt">A</span>
+  <span class="k">def</span> <span class="n">combine</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">A</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">A</span>
+<span class="o">}</span>
+
+<span class="k">implicit</span> <span class="k">val</span> <span class="n">bigIntAddMonoid</span><span class="k">:</span> <span class="kt">Monoid</span><span class="o">[</span><span class="kt">BigInt</span><span class="o">]</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Monoid</span><span class="o">[</span><span class="kt">BigInt</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="n">empty</span><span class="k">:</span> <span class="kt">BigInt</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="n">combine</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span><span class="k">:</span> <span class="kt">BigInt</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+<span class="o">}</span>
+
+<span class="k">implicit</span> <span class="k">val</span> <span class="n">bigIntProdMonoid</span><span class="k">:</span> <span class="kt">Monoid</span><span class="o">[</span><span class="kt">BigInt</span><span class="o">]</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Monoid</span><span class="o">[</span><span class="kt">BigInt</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="n">empty</span><span class="k">:</span> <span class="kt">BigInt</span> <span class="o">=</span> <span class="mi">1</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="n">combine</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span><span class="k">:</span> <span class="kt">BigInt</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
+<span class="o">}</span>
+
+<span class="k">def</span> <span class="n">fold</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">list</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">A</span><span class="o">])(</span><span class="k">implicit</span> <span class="n">M</span><span class="k">:</span> <span class="kt">Monoid</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">A</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="n">list</span><span class="o">.</span><span class="n">foldRight</span><span class="o">(</span><span class="n">M</span><span class="o">.</span><span class="n">empty</span><span class="o">)(</span><span class="n">M</span><span class="o">.</span><span class="n">combine</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="n">list</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">BigInt</span><span class="o">]</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">res</span><span class="k">:</span> <span class="kt">BigInt</span> <span class="o">=</span> <span class="n">fold</span><span class="o">(</span><span class="n">list</span><span class="o">)</span> <span class="c1">// ?</span>
+</pre></div>
+</div>
+<p>Here, the Scala compiler bails out with an <em>ambiguous implicits</em> error but for good reasons this time.
+Indeed, depending on which instance of <code class="docutils literal notranslate"><span class="pre">Monoid[BigInt]</span></code> it picks, <code class="docutils literal notranslate"><span class="pre">res</span></code> can either be equal to 5 or 6.
+This issue arise because the two instances above are <em>overlapping</em>, which has the effect of making the
+type system <em>incoherent</em>.  For a type system to be coherent, “every valid typing derivation for a program
+must lead to a resulting program that has the same dynamic semantics”, which is clearly not the case here.
+While in this specific example, the compiler will rightfully reject the program, this might always be
+possible as one could import a different instance in scope in two different modules, and then a third module
+might assume that these modules actually make use of the same instance, silently breaking the program.
+Imagine trying to merge two <code class="docutils literal notranslate"><span class="pre">Sets</span></code> that have been created with two different <code class="docutils literal notranslate"><span class="pre">Ord</span></code> instances in scope.</p>
+<p>Haskell partially solves this problem by enforcing that instances defined in the same module do not overlap,
+that is to say that the compiler would reject the program above. We deem Haskell’s approach only partial as
+it allows the programmer to define two or more overlapping instances, provided that they are not defined in the same module.
+A program is then only rejected when the programmer makes imports such overlapping instances in scope and
+attempts to make use of them. This decision stems from the will to allow linking together two different
+libraries which both define a class instance for the same type.</p>
+<p>Because Stainless operates under a closed-world assumption, we could go further and disallow overlapping
+instances altogether, but this has not been implemented yet.</p>
+<p>One might still want to provide both an additive and multiplicative <code class="docutils literal notranslate"><span class="pre">Monoid</span></code> instance for integers.
+To this end, one can wrap values of type <code class="docutils literal notranslate"><span class="pre">BigInt</span></code> with two different wrapper classes for which
+we will define the respective instances:</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">case</span> <span class="k">class</span> <span class="nc">Sum</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span>     <span class="k">extends</span> <span class="nc">AnyVal</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Product</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">AnyVal</span>
+
+<span class="k">implicit</span> <span class="k">val</span> <span class="n">bigIntSumMonoid</span><span class="k">:</span> <span class="kt">Monoid</span><span class="o">[</span><span class="kt">Sum</span><span class="o">]</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Monoid</span><span class="o">[</span><span class="kt">Sum</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="n">empty</span><span class="k">:</span> <span class="kt">Sum</span> <span class="o">=</span> <span class="nc">Sum</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="n">combine</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Sum</span> <span class="o">=</span> <span class="nc">Sum</span><span class="o">(</span><span class="n">x</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="n">y</span><span class="o">.</span><span class="n">value</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="k">implicit</span> <span class="k">val</span> <span class="n">bigIntProductMonoid</span><span class="k">:</span> <span class="kt">Monoid</span><span class="o">[</span><span class="kt">Product</span><span class="o">]</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Monoid</span><span class="o">[</span><span class="kt">Product</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="n">empty</span><span class="k">:</span> <span class="kt">Product</span> <span class="o">=</span> <span class="nc">Product</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="n">combine</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Product</span> <span class="o">=</span> <span class="nc">Product</span><span class="o">(</span><span class="n">x</span><span class="o">.</span><span class="n">value</span> <span class="o">*</span> <span class="n">y</span><span class="o">.</span><span class="n">value</span><span class="o">)</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="n">foldMap</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">B</span><span class="o">](</span><span class="n">list</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">A</span><span class="o">])(</span><span class="n">f</span><span class="k">:</span> <span class="kt">A</span> <span class="o">=&gt;</span> <span class="n">B</span><span class="o">)(</span><span class="k">implicit</span> <span class="n">M</span><span class="k">:</span> <span class="kt">Monoid</span><span class="o">[</span><span class="kt">B</span><span class="o">])</span><span class="k">:</span> <span class="kt">B</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="n">list</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">f</span><span class="o">).</span><span class="n">foldRight</span><span class="o">(</span><span class="n">M</span><span class="o">.</span><span class="n">empty</span><span class="o">)(</span><span class="n">M</span><span class="o">.</span><span class="n">combine</span><span class="o">)</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>It then becomes possible to unambiguously pick which instance to use depending on the semantics one wants:</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">val</span> <span class="n">list</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">BigInt</span><span class="o">]</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">sum</span><span class="k">:</span> <span class="kt">BigInt</span>     <span class="o">=</span> <span class="n">foldMap</span><span class="o">(</span><span class="n">list</span><span class="o">)(</span><span class="nc">Sum</span><span class="o">(</span><span class="k">_</span><span class="o">)).</span><span class="n">value</span>     <span class="c1">// 5</span>
+<span class="k">val</span> <span class="n">product</span><span class="k">:</span> <span class="kt">BigInt</span> <span class="o">=</span> <span class="n">foldMap</span><span class="o">(</span><span class="n">list</span><span class="o">)(</span><span class="nc">Product</span><span class="o">(</span><span class="k">_</span><span class="o">)).</span><span class="n">value</span> <span class="c1">// 6</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="under-the-hood">
+<h2>Under the hood<a class="headerlink" href="#under-the-hood" title="Permalink to this headline">¶</a></h2>
+<p>In this section we describe how laws are encoded. Let’s take as an example the
+following typeclass:</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">abstract</span> <span class="k">class</span> <span class="nc">Structure</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">doSomething</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">A</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">A</span>
+
+  <span class="nd">@law</span>
+  <span class="k">def</span> <span class="n">someLaw</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">A</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="n">doSomething</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="o">==</span> <span class="n">doSomething</span><span class="o">(</span><span class="n">y</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>And a valid instance for <code class="docutils literal notranslate"><span class="pre">BigInt</span></code>:</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">val</span> <span class="n">bigIntInstance</span><span class="k">:</span> <span class="kt">Structure</span><span class="o">[</span><span class="kt">BigInt</span><span class="o">]</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Structure</span><span class="o">[</span><span class="kt">BigInt</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="n">doSomething</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span><span class="k">:</span> <span class="kt">BigInt</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+  <span class="o">}</span>
+
+  <span class="k">override</span> <span class="k">def</span> <span class="n">someLaw</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="n">someLaw</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="n">because</span> <span class="o">{</span>
+      <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">==</span> <span class="n">y</span> <span class="o">+</span> <span class="n">y</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">abstract</span> <span class="k">class</span> <span class="nc">Structure</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>
+  <span class="nd">@abstract</span>
+  <span class="k">def</span> <span class="n">doSomething</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">A</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="o">&lt;</span><span class="n">empty</span> <span class="n">tree</span><span class="o">&gt;[</span><span class="kt">A</span><span class="o">]</span>
+  <span class="o">}</span>
+
+  <span class="nd">@abstract</span>
+  <span class="k">def</span> <span class="n">someLaw</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">A</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="o">&lt;</span><span class="n">empty</span> <span class="n">tree</span><span class="o">&gt;[</span><span class="kt">Boolean</span><span class="o">]</span>
+  <span class="o">}</span> <span class="n">ensuring</span> <span class="o">{</span> <span class="n">res</span> <span class="k">=&gt;</span> <span class="n">res</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">.</span><span class="n">someLawProp</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="o">}</span>
+
+  <span class="k">def</span> <span class="n">someLawProp</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">A</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="n">doSomething</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="o">==</span> <span class="k">this</span><span class="o">.</span><span class="n">doSomething</span><span class="o">(</span><span class="n">y</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="n">bigIntInstance</span><span class="k">:</span> <span class="kt">Structure</span><span class="o">[</span><span class="kt">BigInt</span><span class="o">]</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Structure</span><span class="o">[</span><span class="kt">BigInt</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">doSomething</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span><span class="k">:</span> <span class="kt">BigInt</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+  <span class="o">}</span>
+
+  <span class="k">def</span> <span class="n">someLaw</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="n">someLaw</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="n">because</span> <span class="o">{</span>
+      <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">==</span> <span class="n">y</span> <span class="o">+</span> <span class="n">x</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">abstract</span> <span class="k">class</span> <span class="nc">A</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">x</span><span class="k">:</span> <span class="kt">BigInt</span>
+
+  <span class="nd">@law</span> <span class="k">def</span> <span class="n">constraint</span> <span class="k">=</span> <span class="n">x</span> <span class="o">!=</span> <span class="mi">0</span>
+<span class="o">}</span>
+
+<span class="k">abstract</span> <span class="k">class</span> <span class="nc">B</span> <span class="k">extends</span> <span class="n">A</span>
+
+<span class="k">abstract</span> <span class="k">class</span> <span class="nc">C</span> <span class="k">extends</span> <span class="n">B</span> <span class="o">{</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="n">constraint</span> <span class="k">=</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="o">}</span>
+
+<span class="k">case</span> <span class="k">class</span> <span class="nc">D</span><span class="o">()</span> <span class="k">extends</span> <span class="n">C</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">x</span> <span class="k">=</span> <span class="mi">42</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">abstract</span> <span class="k">class</span> <span class="nc">A</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">x</span><span class="k">:</span> <span class="kt">BigInt</span>
+
+  <span class="nd">@law</span> <span class="k">def</span> <span class="n">constraint$1</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="o">&lt;</span><span class="n">empty</span> <span class="n">tree</span><span class="o">&gt;[</span><span class="kt">Boolean</span><span class="o">]</span>
+  <span class="o">}</span> <span class="n">ensuring</span> <span class="o">{</span> <span class="n">res</span> <span class="k">=&gt;</span> <span class="n">res</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">.</span><span class="n">constraintProp$1</span> <span class="o">}</span>
+
+  <span class="k">def</span> <span class="n">constraintProp$1</span> <span class="k">=</span> <span class="n">x</span> <span class="o">!=</span> <span class="mi">0</span>
+<span class="o">}</span>
+
+<span class="k">abstract</span> <span class="k">class</span> <span class="nc">B</span> <span class="k">extends</span> <span class="n">A</span> <span class="o">{</span>
+  <span class="nd">@law</span> <span class="k">def</span> <span class="n">constraint$2</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="n">constraint$1</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">.</span><span class="n">constraintProp$2</span>
+  <span class="o">}</span>
+
+  <span class="k">def</span> <span class="n">constraintProp$2</span> <span class="k">=</span> <span class="kc">true</span>
+<span class="o">}</span>
+
+<span class="k">abstract</span> <span class="k">class</span> <span class="nc">C</span> <span class="k">extends</span> <span class="n">B</span> <span class="o">{</span>
+  <span class="nd">@law</span> <span class="k">def</span> <span class="n">constraint$3</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="n">constraint$2</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">.</span><span class="n">constraintProp$3</span>
+  <span class="o">}</span>
+
+  <span class="k">def</span> <span class="n">constraintProp$3</span> <span class="k">=</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="o">}</span>
+
+<span class="k">case</span> <span class="k">class</span> <span class="nc">D</span><span class="o">()</span> <span class="k">extends</span> <span class="n">C</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">x</span> <span class="k">=</span> <span class="mi">42</span>
+
+  <span class="nd">@law</span> <span class="k">def</span> <span class="n">constraint$3</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="n">constraint$3</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">.</span><span class="n">constraintProp$4</span>
+  <span class="o">}</span>
+
+  <span class="k">def</span> <span class="n">constraintProp$4</span> <span class="k">=</span> <span class="kc">true</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">As can be seen above, calling the super method when refining or proving a law is superfluous,
+since it is done anyway during the encoding, but can help readability, as doing so makes the
+code more closely match the semantics of Stainless.</p>
+</div>
+<table class="docutils citation" frame="void" id="wb89" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[WB89]</a></td><td><ol class="first last upperalpha simple" start="16">
+<li>Wadler and S. Blott. 1989. How to make ad-hoc polymorphism less ad hoc.</li>
+</ol>
+</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="imperative.html" class="btn btn-neutral float-right" title="Imperative" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="verification.html" class="btn btn-neutral" title="Verification" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2009-2019 EPFL, Lausanne.
+      Last updated on Jun 28, 2019.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

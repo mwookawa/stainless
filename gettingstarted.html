@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Verifying Examples &mdash; Stainless 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Stainless 0.1 documentation" href="index.html"/>
+        <link rel="next" title="Tutorial: Sorting" href="tutorial.html"/>
+        <link rel="prev" title="Installing Stainless" href="installation.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Stainless
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installing Stainless</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Verifying Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial: Sorting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="verification.html">Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laws.html">Specifying Algebraic Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="imperative.html">Imperative</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ghost.html">Ghost Context</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wrap.html">Working With Existing Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="purescala.html">Pure Scala</a></li>
+<li class="toctree-l1"><a class="reference internal" href="library.html">Stainless Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="neon.html">Proving Theorems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="limitations.html">Limitations of Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="casestudies.html">Case Studies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals.html">Stainless’ Internals</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Stainless</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Verifying Examples</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/gettingstarted.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="verifying-examples">
+<span id="gettingstarted"></span><h1>Verifying Examples<a class="headerlink" href="#verifying-examples" title="Permalink to this headline">¶</a></h1>
+<p>Stainless is currently only available as a command line tool,
+which exposes most of the functionality. See the
+<a class="reference internal" href="installation.html"><span class="doc">installation documentation</span></a>
+for more information. It is henceforth assumed that there
+exists a <code class="docutils literal notranslate"><span class="pre">stainless</span></code> script in in your PATH.</p>
+<p>To see the main options, use</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ stainless --help
+</pre></div>
+</div>
+<p>in your command line shell.
+You may also wish to consult the <a class="reference internal" href="options.html"><span class="doc">available command-line options</span></a>.</p>
+<p>You can try some of the examples from <code class="docutils literal notranslate"><span class="pre">frontends/benchmarks</span></code>
+distributed with Stainless:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ stainless --solvers<span class="o">=</span>smt-cvc4 frontends/benchmarks/verification/invalid/InsertionSort.scala
+</pre></div>
+</div>
+<p>and get something like this</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[  Info  ]  - Now solving &#39;postcondition&#39; VC for buggySortedIns @33:3...
+[  Info  ]  - Result for &#39;postcondition&#39; VC for buggySortedIns @33:3:
+[  Info  ]  =&gt; VALID
+[  Info  ]  - Now solving &#39;postcondition&#39; VC for buggySortedIns @33:3...
+[  Info  ]  - Result for &#39;postcondition&#39; VC for buggySortedIns @33:3:
+[Warning ]  =&gt; INVALID
+[Warning ] Found counter-example:
+[Warning ]   e: Int  -&gt; -2304
+[Warning ]   l: List -&gt; Cons(-1073744061, Cons(-1073744128, Nil()))
+[  Info  ]  - Now solving &#39;postcondition&#39; VC for buggySortedIns @33:3...
+[  Info  ]  - Result for &#39;postcondition&#39; VC for buggySortedIns @33:3:
+[Warning ]  =&gt; INVALID
+[Warning ] Found counter-example:
+[Warning ]   e: Int  -&gt; -1084295451
+[Warning ]   l: List -&gt; Cons(1004398524, Cons(-1065353216, Nil()))
+[  Info  ]  - Now solving &#39;match exhaustiveness&#39; VC for buggySortedIns @35:5...
+[  Info  ]  - Result for &#39;match exhaustiveness&#39; VC for buggySortedIns @35:5:
+[  Info  ]  =&gt; VALID
+[  Info  ]  - Now solving &#39;postcondition&#39; VC for size @15:3...
+[  Info  ]  - Result for &#39;postcondition&#39; VC for size @15:3:
+[  Info  ]  =&gt; VALID
+[  Info  ]  - Now solving &#39;postcondition&#39; VC for size @15:3...
+[  Info  ]  - Result for &#39;postcondition&#39; VC for size @15:3:
+[  Info  ]  =&gt; VALID
+[  Info  ]  - Now solving &#39;match exhaustiveness&#39; VC for size @15:34...
+[  Info  ]  - Result for &#39;match exhaustiveness&#39; VC for size @15:34:
+[  Info  ]  =&gt; VALID
+[  Info  ]  - Now solving &#39;match exhaustiveness&#39; VC for contents @20:37...
+[  Info  ]  - Result for &#39;match exhaustiveness&#39; VC for contents @20:37:
+[  Info  ]  =&gt; VALID
+[  Info  ]  - Now solving &#39;match exhaustiveness&#39; VC for isSorted @25:36...
+[  Info  ]  - Result for &#39;match exhaustiveness&#39; VC for isSorted @25:36:
+[  Info  ]  =&gt; VALID
+[  Info  ]   ┌──────────────────────┐
+[  Info  ] ╔═╡ verification summary ╞════════════════════════════════════════════════════════════════════╗
+[  Info  ] ║ └──────────────────────┘                                                                    ║
+[  Info  ] ║ buggySortedIns  postcondition         invalid  U:smt-cvc4  InsertionSort.scala:33:3   0.209 ║
+[  Info  ] ║ buggySortedIns  postcondition         valid    U:smt-cvc4  InsertionSort.scala:33:3   0.358 ║
+[  Info  ] ║ buggySortedIns  postcondition         invalid  U:smt-cvc4  InsertionSort.scala:33:3   0.481 ║
+[  Info  ] ║ buggySortedIns  match exhaustiveness  valid    U:smt-cvc4  InsertionSort.scala:35:5   0.016 ║
+[  Info  ] ║ contents        match exhaustiveness  valid    U:smt-cvc4  InsertionSort.scala:20:37  0.021 ║
+[  Info  ] ║ isSorted        match exhaustiveness  valid    U:smt-cvc4  InsertionSort.scala:25:36  0.035 ║
+[  Info  ] ║ size            postcondition         valid    U:smt-cvc4  InsertionSort.scala:15:3   0.023 ║
+[  Info  ] ║ size            postcondition         valid    U:smt-cvc4  InsertionSort.scala:15:3   0.051 ║
+[  Info  ] ║ size            match exhaustiveness  valid    U:smt-cvc4  InsertionSort.scala:15:34  0.024 ║
+[  Info  ] ╟---------------------------------------------------------------------------------------------╢
+[  Info  ] ║ total: 9    valid: 7    (0 from cache) invalid: 2    unknown: 0    time:   1.218            ║
+[  Info  ] ╚═════════════════════════════════════════════════════════════════════════════════════════════╝
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tutorial.html" class="btn btn-neutral float-right" title="Tutorial: Sorting" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral" title="Installing Stainless" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2009-2019 EPFL, Lausanne.
+      Last updated on Jun 28, 2019.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

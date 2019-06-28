@@ -1,0 +1,501 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installing Stainless &mdash; Stainless 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Stainless 0.1 documentation" href="index.html"/>
+        <link rel="next" title="Verifying Examples" href="gettingstarted.html"/>
+        <link rel="prev" title="Introduction" href="intro.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Stainless
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installing Stainless</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#general-requirement">General Requirement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#use-pre-packaged-jar-file">Use Pre-Packaged JAR file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#external-solver-binaries">External Solver Binaries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#install-z3-4-7-1-linux-macos">Install Z3 4.7.1 (Linux &amp; macOS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-cvc-1-7-linux">Install CVC 1.7 (Linux)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-cvc-1-6-macos">Install CVC 1.6 (macOS)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#build-from-source-on-linux-macos">Build from Source on Linux &amp; macOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#build-from-source-on-windows-10">Build from Source on Windows 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage-within-an-sbt-project">Usage within an sbt Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-tests">Running Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-stainless-documentation">Building Stainless Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Verifying Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial: Sorting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="verification.html">Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laws.html">Specifying Algebraic Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="imperative.html">Imperative</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ghost.html">Ghost Context</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wrap.html">Working With Existing Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="purescala.html">Pure Scala</a></li>
+<li class="toctree-l1"><a class="reference internal" href="library.html">Stainless Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="neon.html">Proving Theorems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="limitations.html">Limitations of Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="casestudies.html">Case Studies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals.html">Stainless’ Internals</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Stainless</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Installing Stainless</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installing-stainless">
+<span id="installation"></span><h1>Installing Stainless<a class="headerlink" href="#installing-stainless" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="general-requirement">
+<h2>General Requirement<a class="headerlink" href="#general-requirement" title="Permalink to this headline">¶</a></h2>
+<p>Java 8 JRE. It sufficies to have headless OpenJDK JRE 8 (e.g. one that one gets with <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">openjdk-8-jre-headless</span></code> on Debian/Ubuntu). Make sure that <code class="docutils literal notranslate"><span class="pre">java</span> <span class="pre">-version</span></code> reports a version starting with 1.8, such as <code class="docutils literal notranslate"><span class="pre">openjdk</span> <span class="pre">version</span> <span class="pre">&quot;1.8</span></code> or <code class="docutils literal notranslate"><span class="pre">java</span> <span class="pre">version</span> <span class="pre">&quot;1.8</span></code>.</p>
+</div>
+<div class="section" id="use-pre-packaged-jar-file">
+<h2>Use Pre-Packaged JAR file<a class="headerlink" href="#use-pre-packaged-jar-file" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Download the latest Stainless JAR from the <a class="reference external" href="https://github.com/epfl-lara/stainless/releases">Releases page on GitHub</a></li>
+<li>Paste the following code in a file named <code class="docutils literal notranslate"><span class="pre">test.scala</span></code>:</li>
+</ol>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">import</span> <span class="nn">stainless.lang._</span>
+
+<span class="k">object</span> <span class="nc">test</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">ok</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="n">assert</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>In a terminal, type the following command, substituting the proper path to the Stainless JAR previously downloaded:</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ java -jar /path/to/stainless/jar/file.jar test.scala
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li>The output should read:</li>
+</ol>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[Warning ] The Z3 native interface is not available. Falling back onto princess.
+[  Info  ]  - Checking cache: &#39;body assertion&#39; VC for ok @5:5...
+[  Info  ] Cache miss: &#39;body assertion&#39; VC for ok @5:5...
+[  Info  ]  - Now solving &#39;body assertion&#39; VC for ok @5:5...
+[  Info  ]  - Result for &#39;body assertion&#39; VC for ok @5:5:
+[  Info  ]  =&gt; VALID
+[  Info  ]   ┌───────────────────┐
+[  Info  ] ╔═╡ stainless summary ╞══════════════════════════════════════════════════════════════════════╗
+[  Info  ] ║ └───────────────────┘                                                                      ║
+[  Info  ] ║ ok   body assertion           valid     U:princess      test.scala:5:5           0.931     ║
+[  Info  ] ╟┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╢
+[  Info  ] ║ total: 1    valid: 1    (0 from cache) invalid: 0    unknown: 0    time:   0.931           ║
+[  Info  ] ╚════════════════════════════════════════════════════════════════════════════════════════════╝
+[  Info  ] Shutting down executor service.
+</pre></div>
+</div>
+</div>
+<div class="section" id="external-solver-binaries">
+<span id="smt-solvers"></span><h2>External Solver Binaries<a class="headerlink" href="#external-solver-binaries" title="Permalink to this headline">¶</a></h2>
+<p>If no external SMT solvers (such as Z3 or CVC4) are found, Stainless will use the bundled Scala-based <a class="reference external" href="http://www.philipp.ruemmer.org/princess.shtml">Princess solver</a></p>
+<p>To improve performance, we highly recommend that you install the following two additional external SMT solvers as binaries for your platform:</p>
+<ul class="simple">
+<li>CVC4 1.7, <a class="reference external" href="http://cvc4.cs.stanford.edu">http://cvc4.cs.stanford.edu</a></li>
+<li>Z3 4.7.1, <a class="reference external" href="https://github.com/Z3Prover/z3">https://github.com/Z3Prover/z3</a></li>
+</ul>
+<p>You can enable these solvers using <code class="docutils literal notranslate"><span class="pre">--solvers=smt-z3</span></code> and <code class="docutils literal notranslate"><span class="pre">--solvers=smt-cvc4</span></code> flags.</p>
+<p>Solver binaries that you install should match your operating system and your architecture. We recommend that you install these solvers as a binary and have their binaries available in the <code class="docutils literal notranslate"><span class="pre">$PATH</span></code> (as <code class="docutils literal notranslate"><span class="pre">z3</span></code> or <code class="docutils literal notranslate"><span class="pre">cvc4</span></code>).</p>
+<p>Note that somewhat lower version numbers of solvers should work as well and might even have different sets of soundness-related issues.</p>
+<p>You can use multiple solvers in portfolio mode, as with the options <code class="docutils literal notranslate"><span class="pre">--timeout=15</span> <span class="pre">--solvers=smt-z3,smt-cvc4</span></code>, where verification succeeds if at least one of the solvers proves (within the given number of seconds) each the verification conditions. We suggest to order the solvers starting from the one most likely to succeed quickly.</p>
+<p>For final verification runs of highly critical software, we recommend that (instead of the portfolio mode) you obtain several solvers and their versions, then try a single solver at a time and ensure that each verification run succeeds (thus applying N-version programming to SMT solver implementations).</p>
+<div class="section" id="install-z3-4-7-1-linux-macos">
+<h3>Install Z3 4.7.1 (Linux &amp; macOS)<a class="headerlink" href="#install-z3-4-7-1-linux-macos" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>Download Z3 4.7.1 from <a class="reference external" href="https://github.com/Z3Prover/z3/releases/tag/z3-4.7.1">https://github.com/Z3Prover/z3/releases/tag/z3-4.7.1</a></li>
+<li>Unzip the downloaded archive</li>
+<li>Copy the <code class="docutils literal notranslate"><span class="pre">z3</span></code> binary found in the <code class="docutils literal notranslate"><span class="pre">bin/</span></code> directory of the inflated archive to a directory in your <code class="docutils literal notranslate"><span class="pre">$PATH</span></code>, eg., <code class="docutils literal notranslate"><span class="pre">/usr/local/bin</span></code>.</li>
+<li>Make sure <code class="docutils literal notranslate"><span class="pre">z3</span></code> can be found, by opening a new terminal window and typing:</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ z3 --version
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li>The output should read:</li>
+</ol>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Z3 version 4.7.1 - 64 bit`
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-cvc-1-7-linux">
+<h3>Install CVC 1.7 (Linux)<a class="headerlink" href="#install-cvc-1-7-linux" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>Download CVC4 1.7 from <a class="reference external" href="http://cvc4.cs.stanford.edu/downloads/builds/x86_64-linux-opt/">http://cvc4.cs.stanford.edu/downloads/builds/x86_64-linux-opt/</a> (reachable from <a class="reference external" href="https://cvc4.github.io/">https://cvc4.github.io/</a> )</li>
+<li>Copy or link the downloaded binary under name <code class="docutils literal notranslate"><span class="pre">cvc4</span></code> to a directory in your <code class="docutils literal notranslate"><span class="pre">$PATH</span></code>, eg., <code class="docutils literal notranslate"><span class="pre">/usr/local/bin</span></code>.</li>
+</ol>
+<ol class="arabic simple" start="4">
+<li>Make sure <code class="docutils literal notranslate"><span class="pre">cvc4</span></code> can be found, by opening a new terminal window and typing:</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cvc4 --version <span class="p">|</span> head
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li>The output should begin with:</li>
+</ol>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>This is CVC4 version 1.7
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-cvc-1-6-macos">
+<h3>Install CVC 1.6 (macOS)<a class="headerlink" href="#install-cvc-1-6-macos" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>Install <a class="reference external" href="https://brew.sh">Homebrew</a></li>
+<li>Install CVC4 using the Homebrew tap at <a class="reference external" href="https://github.com/CVC4/homebrew-cvc4">https://github.com/CVC4/homebrew-cvc4</a></li>
+<li>Make sure <code class="docutils literal notranslate"><span class="pre">cvc4</span></code> can be found, by opening a new terminal window and typing:</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cvc4 --version
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li>The output should begin with:</li>
+</ol>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>This is CVC4 version 1.6
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="build-from-source-on-linux-macos">
+<h2>Build from Source on Linux &amp; macOS<a class="headerlink" href="#build-from-source-on-linux-macos" title="Permalink to this headline">¶</a></h2>
+<p>To build Stainless, we use <code class="docutils literal notranslate"><span class="pre">sbt</span></code>. In a typical configuration, <code class="docutils literal notranslate"><span class="pre">sbt</span> <span class="pre">universal:stage</span></code> in the root of the source tree should work, yet,
+in an attempt to be more reproducible and independent from sbt cache and path, the instructions below assume that the directory called <code class="docutils literal notranslate"><span class="pre">stainless</span></code> does not exist, they instruct <code class="docutils literal notranslate"><span class="pre">sbt</span></code> to use a relative path for its bootstrap, and do not require adding <code class="docutils literal notranslate"><span class="pre">sbt</span></code> to your path.</p>
+<p><strong>Install sbt</strong></p>
+<ul class="simple">
+<li>Download <code class="docutils literal notranslate"><span class="pre">sbt</span></code> 1.2.8, available from <a class="reference external" href="http://www.scala-sbt.org/">http://www.scala-sbt.org/</a></li>
+<li>Unpack the arhive in some place where you will store them permanently</li>
+<li>Find the path to file <code class="docutils literal notranslate"><span class="pre">sbt-launch.jar</span></code> inside the unpacked directory (e.g. under <code class="docutils literal notranslate"><span class="pre">sbt/bin/</span></code>). Let us call this path <code class="docutils literal notranslate"><span class="pre">/path/to/sbt-launch.jar</span></code></li>
+</ul>
+<p><strong>Check out sources</strong></p>
+<p>Get the sources of Stainless by cloning the official Stainless repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/epfl-lara/stainless.git
+Cloning into <span class="s1">&#39;stainless&#39;</span>...
+</pre></div>
+</div>
+<p><strong>Run sbt</strong></p>
+<p>The following instructions will invoke sbt while using a stainless sub-directory to download files.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> stainless
+$ java -Dsbt.boot.directory<span class="o">=</span>./sbt-boot/ -jar /path/to/sbt-launch.jar universal:stage
+</pre></div>
+</div>
+<p><strong>Where to find generated files</strong></p>
+<p>The compilation will automatically generate the following two bash scripts:</p>
+<ol class="arabic simple">
+<li><code class="docutils literal notranslate"><span class="pre">frontends/scalac/target/universal/stage/bin/stainless-scalac</span></code> that will use the <code class="docutils literal notranslate"><span class="pre">scalac</span></code> compiler as frontend,</li>
+<li><code class="docutils literal notranslate"><span class="pre">frontends/stainless-dotty/target/universal/stage/bin/stainless-dotty</span></code> that uses the <code class="docutils literal notranslate"><span class="pre">dotc</span></code> compiler as frontend (experimental).</li>
+</ol>
+<p>You may want to introduce a soft-link from <code class="docutils literal notranslate"><span class="pre">frontends/scalac/target/universal/stage/bin/stainless-scalac</span></code> to a file called <code class="docutils literal notranslate"><span class="pre">stainless</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ln -s frontends/scalac/target/universal/stage/bin/stainless-scalac stainless
+</pre></div>
+</div>
+<p>Analogous scripts work for various platforms and allow additional control over the execution, such as
+passing JVM arguments or system properties:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ frontends/scalac/target/universal/stage/bin/stainless-scalac -Dscalaz3.debug.load<span class="o">=</span><span class="nb">true</span> -J-Xmx6G --help
+</pre></div>
+</div>
+<p>Note that Stainless is organized as a structure of several
+projects. The main project lives in <code class="docutils literal notranslate"><span class="pre">core</span></code> while the two available
+frontends can be found in <code class="docutils literal notranslate"><span class="pre">frontends/scalac</span></code> and <code class="docutils literal notranslate"><span class="pre">frontends/dotty</span></code>.
+From a user point of view, this should most of
+the time be transparent and the build command should take
+care of everything.</p>
+</div>
+<div class="section" id="build-from-source-on-windows-10">
+<h2>Build from Source on Windows 10<a class="headerlink" href="#build-from-source-on-windows-10" title="Permalink to this headline">¶</a></h2>
+<p>Before following the infrequently updated instructions in this section, considering running Ubuntu on Windows 10  and following the instructions for Linux. That said, Stainless is just a JVM application that invokes binaries that are also available for Windows, so it is not too difficult to build a version that runs without a VM.</p>
+<p>Get the sources of Stainless by cloning the official Stainless
+repository. You will need a Git shell for windows, e.g.
+<a class="reference external" href="https://git-for-windows.github.io/">Git for Windows</a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/epfl-lara/stainless.git
+Cloning into <span class="s1">&#39;stainless&#39;</span>...
+// ...
+$ <span class="nb">cd</span> stainless
+$ sbt clean universal:stage
+// takes about <span class="m">1</span> minutes
+</pre></div>
+</div>
+<p>Compilation will automatically generate the following two bash scripts:</p>
+<ol class="arabic simple">
+<li><code class="docutils literal notranslate"><span class="pre">frontends/scalac/target/universal/stage/bin/stainless-scalac.bat</span></code> that will use the <code class="docutils literal notranslate"><span class="pre">scalac</span></code> compiler as frontend,</li>
+<li><code class="docutils literal notranslate"><span class="pre">frontends/stainless-dotty/target/universal/stage/bin/stainless-dotty.bat</span></code> that uses the <code class="docutils literal notranslate"><span class="pre">dotc</span></code> compiler as frontend (experimental).</li>
+</ol>
+</div>
+<div class="section" id="usage-within-an-sbt-project">
+<h2>Usage within an sbt Project<a class="headerlink" href="#usage-within-an-sbt-project" title="Permalink to this headline">¶</a></h2>
+<p>Setting up an sbt build file to use Stainless is a simple 4-step procedure that avoids the need to explicitly build stainless itself.</p>
+<ol class="arabic simple">
+<li>Start by installing an external solver (see Section “<a class="reference internal" href="#smt-solvers"><span class="std std-ref">External Solver Binaries</span></a>”).</li>
+<li>Add the <code class="docutils literal notranslate"><span class="pre">sbt-stainless</span></code> plugin together with the required resolver to your <code class="docutils literal notranslate"><span class="pre">project/plugins.sbt</span></code></li>
+</ol>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="n">resolvers</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span>
+  <span class="nc">Resolver</span><span class="o">.</span><span class="n">bintrayRepo</span><span class="o">(</span><span class="s">&quot;epfl-lara&quot;</span><span class="o">,</span> <span class="s">&quot;princess&quot;</span><span class="o">),</span>
+  <span class="nc">Resolver</span><span class="o">.</span><span class="n">bintrayIvyRepo</span><span class="o">(</span><span class="s">&quot;epfl-lara&quot;</span><span class="o">,</span> <span class="s">&quot;sbt-plugins&quot;</span><span class="o">),</span>
+  <span class="s">&quot;uuverifiers&quot;</span> <span class="n">at</span> <span class="s">&quot;http://logicrunch.research.it.uu.se/maven&quot;</span><span class="o">,</span>
+<span class="o">)</span>
+
+<span class="n">addSbtPlugin</span><span class="o">(</span><span class="s">&quot;ch.epfl.lara&quot;</span> <span class="o">%</span> <span class="s">&quot;sbt-stainless&quot;</span> <span class="o">%</span> <span class="s">&quot;&lt;insert-version&gt;&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+<p>Check the <a class="reference external" href="https://bintray.com/epfl-lara/sbt-plugins/sbt-stainless">sbt-stainless bintray repository</a> for the available versions.</p>
+<ol class="arabic simple" start="3">
+<li>In your project’s build file, enable the <code class="docutils literal notranslate"><span class="pre">StainlessPlugin</span></code> on the modules that should be verified by stainless. Below is an example:</li>
+</ol>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="c1">// build.sbt</span>
+<span class="k">lazy</span> <span class="k">val</span> <span class="n">algorithm</span> <span class="k">=</span> <span class="n">project</span>
+  <span class="o">.</span><span class="n">in</span><span class="o">(</span><span class="n">file</span><span class="o">(</span><span class="s">&quot;algorithm&quot;</span><span class="o">))</span>
+  <span class="o">.</span><span class="n">enablePlugins</span><span class="o">(</span><span class="nc">StainlessPlugin</span><span class="o">)</span> <span class="c1">// &lt;-- Enabling stainless verification on this module!</span>
+  <span class="o">.</span><span class="n">settings</span><span class="o">(...)</span>
+</pre></div>
+</div>
+<p>Note that if you are using <code class="docutils literal notranslate"><span class="pre">.scala</span></code> build files you need to use the fully qualified name <code class="docutils literal notranslate"><span class="pre">ch.epfl.lara.sbt.stainless.StainlessPlugin</span></code>. Also, because stainless accepts a subset of the Scala language, you may need to refactor your build a bit and code to successfully use stainless on a module.</p>
+<ol class="arabic simple" start="4">
+<li>After modifying the build, type <code class="docutils literal notranslate"><span class="pre">reload</span></code> if inside the sbt interactive shell. From now on, when executing <code class="docutils literal notranslate"><span class="pre">compile</span></code> on a module where the <code class="docutils literal notranslate"><span class="pre">StainlessPlugin</span></code> is enabled, stainless will check your Scala code and report errors in the shell (just like any other error that would be reported during compilation).</li>
+</ol>
+<p>That’s all there is to it. However, the <code class="docutils literal notranslate"><span class="pre">sbt-stainless</span></code> plugin is a more recent addition to stainless compared to command-line script. It has seen less testing in the field and currently has the following limitations:</p>
+<ul class="simple">
+<li>No incremental compilation support. All sources (included the stainless-library sources) are recompiled at every <code class="docutils literal notranslate"><span class="pre">compile</span></code> execution.ub</li>
+<li>The plugin <em>does not</em> support Scala 3 (dotty). To track sbt support in dotty you can follow <a class="reference external" href="https://github.com/epfl-lara/stainless/issues/178">issue #178</a>.</li>
+</ul>
+<p>Also, note that the plugin offers a <code class="docutils literal notranslate"><span class="pre">stainlessEnabled</span></code> setting that can help experimenting with stainless. The <code class="docutils literal notranslate"><span class="pre">stainlessEnabled</span></code> setting is set to <code class="docutils literal notranslate"><span class="pre">true</span></code> by default, but you can flip the flag to false by typing <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">every</span> <span class="pre">stainlessEnabled</span> <span class="pre">:=</span> <span class="pre">false</span></code> while inside the sbt interactive shell.</p>
+</div>
+<div class="section" id="running-tests">
+<h2>Running Tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h2>
+<p>Stainless comes with a test suite. Use the following commands to
+invoke different test suites:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sbt <span class="nb">test</span>
+$ sbt it:test
+</pre></div>
+</div>
+<p>It’s also possible to run tests in isolation, for example, the following command runs <code class="docutils literal notranslate"><span class="pre">Extraction</span></code> tests on all files in <code class="docutils literal notranslate"><span class="pre">termination/looping</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sbt <span class="s1">&#39;it:testOnly *ExtractionSuite* -- -z &quot;in termination/looping&quot;&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="building-stainless-documentation">
+<h2>Building Stainless Documentation<a class="headerlink" href="#building-stainless-documentation" title="Permalink to this headline">¶</a></h2>
+<p>Stainless documentation is available at <a class="reference external" href="https://epfl-lara.github.io/stainless/">https://epfl-lara.github.io/stainless/</a> .
+To build the documentation locally, you will need Sphinx (
+<a class="reference external" href="http://sphinx-doc.org/">http://sphinx-doc.org/</a> ), a restructured text toolkit that
+was originally developed to support Python documentation.</p>
+<ul class="simple">
+<li>On Ubuntu 18, you can use <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">sphinx-common</span></code></li>
+</ul>
+<p>After installing sphinx, run <code class="docutils literal notranslate"><span class="pre">sbt</span> <span class="pre">previewSite</span></code>. This will generate the documentation and open a browser.</p>
+<p>The documentation resides in the <code class="docutils literal notranslate"><span class="pre">core/src/sphinx/</span></code> directory and can also be alternatively built without <code class="docutils literal notranslate"><span class="pre">sbt</span></code>, using the provided <code class="docutils literal notranslate"><span class="pre">Makefile</span></code>. To do this, in a Linux shell go to the directory <code class="docutils literal notranslate"><span class="pre">core/src/sphinx/</span></code>,
+type <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code>, and open in your web browser the generated top-level local HTML file, by default stored in
+<code class="docutils literal notranslate"><span class="pre">src/sphinx/_build/html/index.html</span></code>. Also, you can open the <code class="docutils literal notranslate"><span class="pre">*.rst</span></code> documentation files in a text editor, as they are human-readable in their source form as well.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="gettingstarted.html" class="btn btn-neutral float-right" title="Verifying Examples" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="intro.html" class="btn btn-neutral" title="Introduction" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2009-2019 EPFL, Lausanne.
+      Last updated on Jun 28, 2019.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
