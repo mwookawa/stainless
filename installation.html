@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installing Stainless &mdash; Stainless 0.1 documentation</title>
+  <title>Installing Stainless &mdash; Stainless 0.5.1 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Stainless 0.1 documentation" href="index.html"/>
+    <link rel="top" title="Stainless 0.5.1 documentation" href="index.html"/>
         <link rel="next" title="Verifying Examples" href="gettingstarted.html"/>
         <link rel="prev" title="Introduction" href="intro.html"/> 
 
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.1
+                0.5
               </div>
             
           
@@ -90,6 +90,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installing Stainless</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#general-requirement">General Requirement</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#use-standalone-release-recommended">Use Standalone Release (recommended)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#via-docker">Via Docker</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#use-gitter8-template">Use Gitter8 Template</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#usage-within-an-sbt-project">Usage within an sbt project</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#external-solver-binaries">External Solver Binaries</a><ul>
@@ -235,11 +236,21 @@ Make sure that <code class="docutils literal notranslate"><span class="pre">java
 [  Info  ] Shutting down executor service.
 </pre></div>
 </div>
+<p>Note: If the warning above says something about falling back on the Princess solver, you might be missing the <code class="docutils literal notranslate"><span class="pre">libgomp1</span></code> library,
+which you can install with your favorite package manager. For example, on Debian/Ubuntu, just run <code class="docutils literal notranslate"><span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">libgomp1`</span></code>.</p>
+</div>
+<div class="section" id="via-docker">
+<span id="docker"></span><h2>Via Docker<a class="headerlink" href="#via-docker" title="Permalink to this headline">¶</a></h2>
+<p>If you have <a class="reference external" href="https://docs.docker.com">Docker</a> installed, you can run the latest Stainless version with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ docker run -v <span class="nv">$PWD</span>:/local docker.pkg.github.com/romac/stainless/stainless:latest /local/test.scala
+</pre></div>
+</div>
+<p>This will pull down the latest Stainless image from the GitHub package registry, mount the current directory at <code class="docutils literal notranslate"><span class="pre">/local</span></code> within the container, and invoke Stainless on <code class="docutils literal notranslate"><span class="pre">test.scala</span></code>, provided it exists in the current directory. See the previous section for a sample <code class="docutils literal notranslate"><span class="pre">test.scala</span></code>.</p>
 </div>
 <div class="section" id="use-gitter8-template">
 <span id="gitter8-template"></span><h2>Use Gitter8 Template<a class="headerlink" href="#use-gitter8-template" title="Permalink to this headline">¶</a></h2>
 <p><strong>Install sbt:</strong></p>
-<p>Follow the instructions at <a class="reference external" href="http://www.scala-sbt.org/">http://www.scala-sbt.org/</a> to install <code class="docutils literal notranslate"><span class="pre">sbt</span></code> 1.2.8.</p>
+<p>Follow the instructions at <a class="reference external" href="http://www.scala-sbt.org/">http://www.scala-sbt.org/</a> to install <code class="docutils literal notranslate"><span class="pre">sbt</span></code> 1.3.0.</p>
 <p><strong>Create a new project from the template:</strong></p>
 <ol class="arabic">
 <li><p class="first">In a console, create a new project with the following command:</p>
@@ -278,7 +289,7 @@ Make sure that <code class="docutils literal notranslate"><span class="pre">java
 <div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="n">resolvers</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span>
   <span class="nc">Resolver</span><span class="o">.</span><span class="n">bintrayRepo</span><span class="o">(</span><span class="s">&quot;epfl-lara&quot;</span><span class="o">,</span> <span class="s">&quot;princess&quot;</span><span class="o">),</span>
   <span class="nc">Resolver</span><span class="o">.</span><span class="n">bintrayIvyRepo</span><span class="o">(</span><span class="s">&quot;epfl-lara&quot;</span><span class="o">,</span> <span class="s">&quot;sbt-plugins&quot;</span><span class="o">),</span>
-  <span class="s">&quot;uuverifiers&quot;</span> <span class="n">at</span> <span class="s">&quot;http://logicrunch.research.it.uu.se/maven&quot;</span><span class="o">,</span>
+  <span class="o">(</span><span class="s">&quot;uuverifiers&quot;</span> <span class="n">at</span> <span class="s">&quot;http://logicrunch.research.it.uu.se/maven&quot;</span><span class="o">).</span><span class="n">withAllowInsecureProtocol</span><span class="o">(</span><span class="kc">true</span><span class="o">),</span>
 <span class="o">)</span>
 
 <span class="n">addSbtPlugin</span><span class="o">(</span><span class="s">&quot;ch.epfl.lara&quot;</span> <span class="o">%</span> <span class="s">&quot;sbt-stainless&quot;</span> <span class="o">%</span> <span class="s">&quot;&lt;insert-version&gt;&quot;</span><span class="o">)</span>
@@ -379,7 +390,7 @@ Make sure that <code class="docutils literal notranslate"><span class="pre">java
 <p>To build Stainless, we use <code class="docutils literal notranslate"><span class="pre">sbt</span></code>. In a typical configuration, <code class="docutils literal notranslate"><span class="pre">sbt</span> <span class="pre">universal:stage</span></code> in the root of the source tree should work, yet,
 in an attempt to be more reproducible and independent from sbt cache and path, the instructions below assume that the directory called <code class="docutils literal notranslate"><span class="pre">stainless</span></code> does not exist, they instruct <code class="docutils literal notranslate"><span class="pre">sbt</span></code> to use a relative path for its bootstrap, and do not require adding <code class="docutils literal notranslate"><span class="pre">sbt</span></code> to your path.</p>
 <p><strong>Install sbt</strong></p>
-<p>Follow the instructions at <a class="reference external" href="http://www.scala-sbt.org/">http://www.scala-sbt.org/</a> to install <code class="docutils literal notranslate"><span class="pre">sbt</span></code> 1.2.8.</p>
+<p>Follow the instructions at <a class="reference external" href="http://www.scala-sbt.org/">http://www.scala-sbt.org/</a> to install <code class="docutils literal notranslate"><span class="pre">sbt</span></code> 1.3.0.</p>
 <p><strong>Check out sources</strong></p>
 <p>Get the sources of Stainless by cloning the official Stainless repository:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/epfl-lara/stainless.git
@@ -475,7 +486,7 @@ type <code class="docutils literal notranslate"><span class="pre">make</span> <s
   <div role="contentinfo">
     <p>
         &copy; Copyright 2009-2019 EPFL, Lausanne.
-      Last updated on Jul 07, 2019.
+      Last updated on Sep 13, 2019.
 
     </p>
   </div> 
@@ -496,7 +507,7 @@ type <code class="docutils literal notranslate"><span class="pre">make</span> <s
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.1',
+            VERSION:'0.5.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
