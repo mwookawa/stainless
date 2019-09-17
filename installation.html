@@ -91,14 +91,12 @@
 <li class="toctree-l2"><a class="reference internal" href="#general-requirement">General Requirement</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#use-standalone-release-recommended">Use Standalone Release (recommended)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#via-docker">Via Docker</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#use-gitter8-template">Use Gitter8 Template</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#usage-within-an-sbt-project">Usage within an sbt project</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#external-solver-binaries">External Solver Binaries</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#install-z3-4-7-1-linux-macos">Install Z3 4.7.1 (Linux &amp; macOS)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#install-cvc-1-7-linux">Install CVC 1.7 (Linux)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#install-cvc-1-6-macos">Install CVC 1.6 (macOS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage-with-sbt">Usage With Sbt</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sbt-template-project">Sbt Template Project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage-within-an-existing-project">Usage Within An Existing Project</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#external-solver-binaries">External Solver Binaries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#build-from-source-on-linux-macos">Build from Source on Linux &amp; macOS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#build-from-source-on-windows-10">Build from Source on Windows 10</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#running-tests">Running Tests</a></li>
@@ -237,18 +235,32 @@ Make sure that <code class="docutils literal notranslate"><span class="pre">java
 </pre></div>
 </div>
 <p>Note: If the warning above says something about falling back on the Princess solver, you might be missing the <code class="docutils literal notranslate"><span class="pre">libgomp1</span></code> library,
-which you can install with your favorite package manager. For example, on Debian/Ubuntu, just run <code class="docutils literal notranslate"><span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">libgomp1`</span></code>.</p>
+which you can install with your favorite package manager. For example, on Debian/Ubuntu, just run <code class="docutils literal notranslate"><span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">libgomp1</span></code>.</p>
 </div>
 <div class="section" id="via-docker">
-<span id="docker"></span><h2>Via Docker<a class="headerlink" href="#via-docker" title="Permalink to this headline">¶</a></h2>
+<span id="id1"></span><h2>Via Docker<a class="headerlink" href="#via-docker" title="Permalink to this headline">¶</a></h2>
 <p>If you have <a class="reference external" href="https://docs.docker.com">Docker</a> installed, you can run the latest Stainless version with:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ docker run -v <span class="nv">$PWD</span>:/local docker.pkg.github.com/romac/stainless/stainless:latest /local/test.scala
 </pre></div>
 </div>
-<p>This will pull down the latest Stainless image from the GitHub package registry, mount the current directory at <code class="docutils literal notranslate"><span class="pre">/local</span></code> within the container, and invoke Stainless on <code class="docutils literal notranslate"><span class="pre">test.scala</span></code>, provided it exists in the current directory. See the previous section for a sample <code class="docutils literal notranslate"><span class="pre">test.scala</span></code>.</p>
+<p>This will pull down the latest Stainless image from the <a class="reference external" href="https://github.com/romac/stainless/packages/21998">GitHub package registry</a>, mount the current directory at <code class="docutils literal notranslate"><span class="pre">/local</span></code> within the container, and invoke Stainless on <code class="docutils literal notranslate"><span class="pre">test.scala</span></code>, provided it exists in the current directory. See the previous section for a sample <code class="docutils literal notranslate"><span class="pre">test.scala</span></code>.</p>
 </div>
-<div class="section" id="use-gitter8-template">
-<span id="gitter8-template"></span><h2>Use Gitter8 Template<a class="headerlink" href="#use-gitter8-template" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="usage-with-sbt">
+<span id="sbt-usage"></span><h2>Usage With Sbt<a class="headerlink" href="#usage-with-sbt" title="Permalink to this headline">¶</a></h2>
+<p>Stainless is also avaiable as a sbt plugin, which hooks into the build process to verify
+your code on compilation. This allows for both verifying your code, compiling, and running your
+code in one swift motion.</p>
+<p>Moreover, thanks to <a class="reference external" href="https://scalameta.org/metals/">Metals</a>, Stainless diagnostics will
+automatically appear in your editor of choice (we recommend <a class="reference external" href="https://code.visualstudio.com">VS Code</a>),
+while the full log will typically be available in a separate window/pane.
+To this end, please follow the installation instructions for your editor on
+the <a class="reference external" href="https://scalameta.org/metals/docs/editors/overview.html">Metals website</a>.</p>
+<p>To ease the process, we provide a template for a Stainless-enabled sbt project
+which one can then import into their editor of choice to get started in a few steps:
+<a class="reference internal" href="#gitter8-template"><span class="std std-ref">Sbt Template Project</span></a></p>
+<p>Alternatively, one can also integrate Stainless into an existing sbt project: <a class="reference internal" href="#sbt-project"><span class="std std-ref">Usage Within An Existing Project</span></a>.</p>
+<div class="section" id="sbt-template-project">
+<span id="gitter8-template"></span><h3>Sbt Template Project<a class="headerlink" href="#sbt-template-project" title="Permalink to this headline">¶</a></h3>
 <p><strong>Install sbt:</strong></p>
 <p>Follow the instructions at <a class="reference external" href="http://www.scala-sbt.org/">http://www.scala-sbt.org/</a> to install <code class="docutils literal notranslate"><span class="pre">sbt</span></code> 1.3.0.</p>
 <p><strong>Create a new project from the template:</strong></p>
@@ -279,9 +291,9 @@ which you can install with your favorite package manager. For example, on Debian
 </li>
 </ol>
 </div>
-<div class="section" id="usage-within-an-sbt-project">
-<span id="sbt-project"></span><h2>Usage within an sbt project<a class="headerlink" href="#usage-within-an-sbt-project" title="Permalink to this headline">¶</a></h2>
-<p>Setting up an sbt build file to use Stainless is a simple 4-step procedure that avoids the need to explicitly build stainless itself.</p>
+<div class="section" id="usage-within-an-existing-project">
+<span id="sbt-project"></span><h3>Usage Within An Existing Project<a class="headerlink" href="#usage-within-an-existing-project" title="Permalink to this headline">¶</a></h3>
+<p>Stainless can also be used within an existing sbt 1.3.0 project.</p>
 <ol class="arabic simple">
 <li>Start by installing an external solver (see Section “<a class="reference internal" href="#smt-solvers"><span class="std std-ref">External Solver Binaries</span></a>”).</li>
 <li>Add the <code class="docutils literal notranslate"><span class="pre">sbt-stainless</span></code> plugin together with the required resolver to your <code class="docutils literal notranslate"><span class="pre">project/plugins.sbt</span></code></li>
@@ -295,27 +307,28 @@ which you can install with your favorite package manager. For example, on Debian
 <span class="n">addSbtPlugin</span><span class="o">(</span><span class="s">&quot;ch.epfl.lara&quot;</span> <span class="o">%</span> <span class="s">&quot;sbt-stainless&quot;</span> <span class="o">%</span> <span class="s">&quot;&lt;insert-version&gt;&quot;</span><span class="o">)</span>
 </pre></div>
 </div>
-<p>Check the <a class="reference external" href="https://bintray.com/epfl-lara/sbt-plugins/sbt-stainless">sbt-stainless bintray repository</a> for the available versions.</p>
+<p>Check the <a class="reference external" href="https://github.com/epfl-lara/stainless/releases">GitHub releases</a> or the <a class="reference external" href="https://bintray.com/epfl-lara/sbt-plugins/sbt-stainless">sbt-stainless bintray repository</a> for the available versions.</p>
 <ol class="arabic simple" start="3">
-<li>In your project’s build file, enable the <code class="docutils literal notranslate"><span class="pre">StainlessPlugin</span></code> on the modules that should be verified by stainless. Below is an example:</li>
+<li>In your project’s build file, enable the <code class="docutils literal notranslate"><span class="pre">StainlessPlugin</span></code> on the modules that should be verified by Stainless. Below is an example:</li>
 </ol>
 <div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="c1">// build.sbt</span>
 <span class="k">lazy</span> <span class="k">val</span> <span class="n">algorithm</span> <span class="k">=</span> <span class="n">project</span>
   <span class="o">.</span><span class="n">in</span><span class="o">(</span><span class="n">file</span><span class="o">(</span><span class="s">&quot;algorithm&quot;</span><span class="o">))</span>
-  <span class="o">.</span><span class="n">enablePlugins</span><span class="o">(</span><span class="nc">StainlessPlugin</span><span class="o">)</span> <span class="c1">// &lt;-- Enabling stainless verification on this module!</span>
+  <span class="o">.</span><span class="n">enablePlugins</span><span class="o">(</span><span class="nc">StainlessPlugin</span><span class="o">)</span> <span class="c1">// &lt;-- Enabling Stainless verification on this module!</span>
   <span class="o">.</span><span class="n">settings</span><span class="o">(...)</span>
 </pre></div>
 </div>
-<p>Note that if you are using <code class="docutils literal notranslate"><span class="pre">.scala</span></code> build files you need to use the fully qualified name <code class="docutils literal notranslate"><span class="pre">ch.epfl.lara.sbt.stainless.StainlessPlugin</span></code>. Also, because stainless accepts a subset of the Scala language, you may need to refactor your build a bit and code to successfully use stainless on a module.</p>
+<p>Note that if you are using <code class="docutils literal notranslate"><span class="pre">.scala</span></code> build files you need to use the fully qualified name <code class="docutils literal notranslate"><span class="pre">ch.epfl.lara.sbt.stainless.StainlessPlugin</span></code>. Also, because stainless accepts a subset of the Scala language, you may need to refactor your build a bit and code to successfully use Stainless on a module.</p>
 <ol class="arabic simple" start="4">
-<li>After modifying the build, type <code class="docutils literal notranslate"><span class="pre">reload</span></code> if inside the sbt interactive shell. From now on, when executing <code class="docutils literal notranslate"><span class="pre">compile</span></code> on a module where the <code class="docutils literal notranslate"><span class="pre">StainlessPlugin</span></code> is enabled, stainless will check your Scala code and report errors in the shell (just like any other error that would be reported during compilation).</li>
+<li>After modifying the build, type <code class="docutils literal notranslate"><span class="pre">reload</span></code> if inside the sbt interactive shell. From now on, when executing <code class="docutils literal notranslate"><span class="pre">compile</span></code> on a module where the <code class="docutils literal notranslate"><span class="pre">StainlessPlugin</span></code> is enabled, Stainless will check your Scala code and report errors in the shell (just like any other error that would be reported during compilation).</li>
 </ol>
-<p>That’s all there is to it. However, the <code class="docutils literal notranslate"><span class="pre">sbt-stainless</span></code> plugin is a more recent addition to stainless compared to command-line script. It has seen less testing in the field and currently has the following limitations:</p>
+<p>That’s all there is to it. However, the <code class="docutils literal notranslate"><span class="pre">sbt-stainless</span></code> plugin is a more recent addition to Stainless compared to command-line script. It has seen less testing in the field and currently has the following limitations:</p>
 <ul class="simple">
 <li>No incremental compilation support. All sources (included the stainless-library sources) are recompiled at every <code class="docutils literal notranslate"><span class="pre">compile</span></code> execution.ub</li>
 <li>The plugin <em>does not</em> support Scala 3 (dotty). To track sbt support in dotty you can follow <a class="reference external" href="https://github.com/epfl-lara/stainless/issues/178">issue #178</a>.</li>
 </ul>
-<p>Also, note that the plugin offers a <code class="docutils literal notranslate"><span class="pre">stainlessEnabled</span></code> setting that can help experimenting with stainless. The <code class="docutils literal notranslate"><span class="pre">stainlessEnabled</span></code> setting is set to <code class="docutils literal notranslate"><span class="pre">true</span></code> by default, but you can flip the flag to false by typing <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">every</span> <span class="pre">stainlessEnabled</span> <span class="pre">:=</span> <span class="pre">false</span></code> while inside the sbt interactive shell.</p>
+<p>Also, note that the plugin offers a <code class="docutils literal notranslate"><span class="pre">stainlessEnabled</span></code> setting that can help experimenting with Stainless. The <code class="docutils literal notranslate"><span class="pre">stainlessEnabled</span></code> setting is set to <code class="docutils literal notranslate"><span class="pre">true</span></code> by default, but you can flip the flag to false by typing <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">every</span> <span class="pre">stainlessEnabled</span> <span class="pre">:=</span> <span class="pre">false</span></code> while inside the sbt interactive shell.</p>
+</div>
 </div>
 <div class="section" id="external-solver-binaries">
 <span id="smt-solvers"></span><h2>External Solver Binaries<a class="headerlink" href="#external-solver-binaries" title="Permalink to this headline">¶</a></h2>
@@ -330,8 +343,6 @@ which you can install with your favorite package manager. For example, on Debian
 <p>Note that somewhat lower version numbers of solvers should work as well and might even have different sets of soundness-related issues.</p>
 <p>You can use multiple solvers in portfolio mode, as with the options <code class="docutils literal notranslate"><span class="pre">--timeout=15</span> <span class="pre">--solvers=smt-z3,smt-cvc4</span></code>, where verification succeeds if at least one of the solvers proves (within the given number of seconds) each the verification conditions. We suggest to order the solvers starting from the one most likely to succeed quickly.</p>
 <p>For final verification runs of highly critical software, we recommend that (instead of the portfolio mode) you obtain several solvers and their versions, then try a single solver at a time and ensure that each verification run succeeds (thus applying N-version programming to SMT solver implementations).</p>
-<div class="section" id="install-z3-4-7-1-linux-macos">
-<h3>Install Z3 4.7.1 (Linux &amp; macOS)<a class="headerlink" href="#install-z3-4-7-1-linux-macos" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
 <li>Download Z3 4.7.1 from <a class="reference external" href="https://github.com/Z3Prover/z3/releases/tag/z3-4.7.1">https://github.com/Z3Prover/z3/releases/tag/z3-4.7.1</a></li>
 <li>Unzip the downloaded archive</li>
@@ -347,9 +358,6 @@ which you can install with your favorite package manager. For example, on Debian
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Z3 version 4.7.1 - 64 bit`
 </pre></div>
 </div>
-</div>
-<div class="section" id="install-cvc-1-7-linux">
-<h3>Install CVC 1.7 (Linux)<a class="headerlink" href="#install-cvc-1-7-linux" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
 <li>Download CVC4 1.7 from <a class="reference external" href="http://cvc4.cs.stanford.edu/downloads/builds/x86_64-linux-opt/">http://cvc4.cs.stanford.edu/downloads/builds/x86_64-linux-opt/</a> (reachable from <a class="reference external" href="https://cvc4.github.io/">https://cvc4.github.io/</a> )</li>
 <li>Copy or link the downloaded binary under name <code class="docutils literal notranslate"><span class="pre">cvc4</span></code> to a directory in your <code class="docutils literal notranslate"><span class="pre">$PATH</span></code>, eg., <code class="docutils literal notranslate"><span class="pre">/usr/local/bin</span></code>.</li>
@@ -366,9 +374,6 @@ which you can install with your favorite package manager. For example, on Debian
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>This is CVC4 version 1.7
 </pre></div>
 </div>
-</div>
-<div class="section" id="install-cvc-1-6-macos">
-<h3>Install CVC 1.6 (macOS)<a class="headerlink" href="#install-cvc-1-6-macos" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
 <li>Install <a class="reference external" href="https://brew.sh">Homebrew</a></li>
 <li>Install CVC4 using the Homebrew tap at <a class="reference external" href="https://github.com/CVC4/homebrew-cvc4">https://github.com/CVC4/homebrew-cvc4</a></li>
@@ -382,7 +387,6 @@ which you can install with your favorite package manager. For example, on Debian
 </ol>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>This is CVC4 version 1.6
 </pre></div>
-</div>
 </div>
 </div>
 <div class="section" id="build-from-source-on-linux-macos">
@@ -486,7 +490,7 @@ type <code class="docutils literal notranslate"><span class="pre">make</span> <s
   <div role="contentinfo">
     <p>
         &copy; Copyright 2009-2019 EPFL, Lausanne.
-      Last updated on Sep 13, 2019.
+      Last updated on Sep 17, 2019.
 
     </p>
   </div> 
