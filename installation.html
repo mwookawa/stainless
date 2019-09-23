@@ -96,7 +96,12 @@
 <li class="toctree-l3"><a class="reference internal" href="#usage-within-an-existing-project">Usage Within An Existing Project</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#external-solver-binaries">External Solver Binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#external-solver-binaries">External Solver Binaries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#install-z3-4-7-1-linux-macos">Install Z3 4.7.1 (Linux &amp; macOS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-cvc-1-7-linux">Install CVC 1.7 (Linux)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-cvc-1-6-macos">Install CVC 1.6 (macOS)</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#build-from-source-on-linux-macos">Build from Source on Linux &amp; macOS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#build-from-source-on-windows-10">Build from Source on Windows 10</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#running-tests">Running Tests</a></li>
@@ -240,10 +245,10 @@ which you can install with your favorite package manager. For example, on Debian
 <div class="section" id="via-docker">
 <span id="id1"></span><h2>Via Docker<a class="headerlink" href="#via-docker" title="Permalink to this headline">¶</a></h2>
 <p>If you have <a class="reference external" href="https://docs.docker.com">Docker</a> installed, you can run the latest Stainless version with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ docker run -v <span class="nv">$PWD</span>:/local docker.pkg.github.com/romac/stainless/stainless:latest /local/test.scala
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ docker run -v <span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">:/local&quot;</span> epfllara/stainless:latest /local/test.scala
 </pre></div>
 </div>
-<p>This will pull down the latest Stainless image from the <a class="reference external" href="https://github.com/romac/stainless/packages/21998">GitHub package registry</a>, mount the current directory at <code class="docutils literal notranslate"><span class="pre">/local</span></code> within the container, and invoke Stainless on <code class="docutils literal notranslate"><span class="pre">test.scala</span></code>, provided it exists in the current directory. See the previous section for a sample <code class="docutils literal notranslate"><span class="pre">test.scala</span></code>.</p>
+<p>This will pull down the latest Stainless image from <a class="reference external" href="https://hub.docker.com/r/epfllara/stainless">Docker Hub</a>, mount the current directory at <code class="docutils literal notranslate"><span class="pre">/local</span></code> within the container, and invoke Stainless on <code class="docutils literal notranslate"><span class="pre">test.scala</span></code>, provided it exists in the current directory. See the previous section for a sample <code class="docutils literal notranslate"><span class="pre">test.scala</span></code>.</p>
 </div>
 <div class="section" id="usage-with-sbt">
 <span id="sbt-usage"></span><h2>Usage With Sbt<a class="headerlink" href="#usage-with-sbt" title="Permalink to this headline">¶</a></h2>
@@ -343,6 +348,8 @@ which one can then import into their editor of choice to get started in a few st
 <p>Note that somewhat lower version numbers of solvers should work as well and might even have different sets of soundness-related issues.</p>
 <p>You can use multiple solvers in portfolio mode, as with the options <code class="docutils literal notranslate"><span class="pre">--timeout=15</span> <span class="pre">--solvers=smt-z3,smt-cvc4</span></code>, where verification succeeds if at least one of the solvers proves (within the given number of seconds) each the verification conditions. We suggest to order the solvers starting from the one most likely to succeed quickly.</p>
 <p>For final verification runs of highly critical software, we recommend that (instead of the portfolio mode) you obtain several solvers and their versions, then try a single solver at a time and ensure that each verification run succeeds (thus applying N-version programming to SMT solver implementations).</p>
+<div class="section" id="install-z3-4-7-1-linux-macos">
+<h3>Install Z3 4.7.1 (Linux &amp; macOS)<a class="headerlink" href="#install-z3-4-7-1-linux-macos" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
 <li>Download Z3 4.7.1 from <a class="reference external" href="https://github.com/Z3Prover/z3/releases/tag/z3-4.7.1">https://github.com/Z3Prover/z3/releases/tag/z3-4.7.1</a></li>
 <li>Unzip the downloaded archive</li>
@@ -358,6 +365,9 @@ which one can then import into their editor of choice to get started in a few st
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Z3 version 4.7.1 - 64 bit`
 </pre></div>
 </div>
+</div>
+<div class="section" id="install-cvc-1-7-linux">
+<h3>Install CVC 1.7 (Linux)<a class="headerlink" href="#install-cvc-1-7-linux" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
 <li>Download CVC4 1.7 from <a class="reference external" href="http://cvc4.cs.stanford.edu/downloads/builds/x86_64-linux-opt/">http://cvc4.cs.stanford.edu/downloads/builds/x86_64-linux-opt/</a> (reachable from <a class="reference external" href="https://cvc4.github.io/">https://cvc4.github.io/</a> )</li>
 <li>Copy or link the downloaded binary under name <code class="docutils literal notranslate"><span class="pre">cvc4</span></code> to a directory in your <code class="docutils literal notranslate"><span class="pre">$PATH</span></code>, eg., <code class="docutils literal notranslate"><span class="pre">/usr/local/bin</span></code>.</li>
@@ -374,6 +384,9 @@ which one can then import into their editor of choice to get started in a few st
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>This is CVC4 version 1.7
 </pre></div>
 </div>
+</div>
+<div class="section" id="install-cvc-1-6-macos">
+<h3>Install CVC 1.6 (macOS)<a class="headerlink" href="#install-cvc-1-6-macos" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
 <li>Install <a class="reference external" href="https://brew.sh">Homebrew</a></li>
 <li>Install CVC4 using the Homebrew tap at <a class="reference external" href="https://github.com/CVC4/homebrew-cvc4">https://github.com/CVC4/homebrew-cvc4</a></li>
@@ -387,6 +400,7 @@ which one can then import into their editor of choice to get started in a few st
 </ol>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>This is CVC4 version 1.6
 </pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="build-from-source-on-linux-macos">
@@ -490,7 +504,7 @@ type <code class="docutils literal notranslate"><span class="pre">make</span> <s
   <div role="contentinfo">
     <p>
         &copy; Copyright 2009-2019 EPFL, Lausanne.
-      Last updated on Sep 17, 2019.
+      Last updated on Sep 23, 2019.
 
     </p>
   </div> 
