@@ -184,8 +184,7 @@
 <span id="cmdlineoptions"></span><h1>Command Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h1>
 <p>Stainless’s command line options have the form <code class="docutils literal notranslate"><span class="pre">--option</span></code> or <code class="docutils literal notranslate"><span class="pre">--option=value</span></code>.
 To enable a flag option, use <code class="docutils literal notranslate"><span class="pre">--option=true</span></code> or <code class="docutils literal notranslate"><span class="pre">on</span></code> or <code class="docutils literal notranslate"><span class="pre">yes</span></code>,
-or just <code class="docutils literal notranslate"><span class="pre">--option</span></code>. To disable a flag option, use <code class="docutils literal notranslate"><span class="pre">--option=false</span></code>
-or <code class="docutils literal notranslate"><span class="pre">off</span></code> or <code class="docutils literal notranslate"><span class="pre">no</span></code>.</p>
+or just <code class="docutils literal notranslate"><span class="pre">--option</span></code>. To disable a flag option, use <code class="docutils literal notranslate"><span class="pre">--option=false</span></code>.</p>
 <p>Additionally, if you need to pass options to the <code class="docutils literal notranslate"><span class="pre">scalac</span></code> frontend of Stainless,
 you can do it by using a single dash <code class="docutils literal notranslate"><span class="pre">-</span></code>. For example, try <code class="docutils literal notranslate"><span class="pre">-Ybrowse:typer</span></code>.</p>
 <p>The rest of this section presents command-line options that Stainless recognizes.
@@ -292,6 +291,22 @@ options should be stored. Defaults to <code class="docutils literal notranslate"
 </li>
 <li><p class="first"><code class="docutils literal notranslate"><span class="pre">--json=&lt;file&gt;</span></code></p>
 <p>Export the verification and/or termination analyses to the given file.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">--extra-deps=org:name_scalaVersion:version,...</span></code></p>
+<p>Fetch the specified dependencies, and add their sources to the set of files
+processed by Stainless. Each dependency must be available as a source JAR
+from MavenCentral, the EPFL-LARA bintray organization, your local Ivy database,
+or through another resolver specified via <code class="docutils literal notranslate"><span class="pre">--extra-resolvers</span></code>.</p>
+<p>Note: Stainless will not pull transitive dependencies, so one has to specify
+all transitive dependencies explicitely via this option.</p>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">--extra-deps=ch.epfl.lara:stainless-algebra_2.12:0.1.2</span></code></p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">--extra-resolvers=URL,...</span></code></p>
+<p>Specify additional resolvers to be used to fetch the dependencies specified via
+the <code class="docutils literal notranslate"><span class="pre">--extra-deps</span></code> option.</p>
+<p>Note: The full URL of the resolver must be used.</p>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">--extra-resolvers=https://oss.sonatype.org/content/repositories/snapshots/</span></code></p>
+<p>See the <a class="reference external" href="https://github.com/coursier/coursier/blob/8d011f7eeb2a9dde5ed2518fb2407e7aaecfc54f/modules/coursier/shared/src/main/scala/coursier/Repositories.scala">Coursier source code</a> for the list of most common repositories URLs.</p>
 </li>
 </ul>
 </div>
@@ -421,7 +436,7 @@ from <code class="docutils literal notranslate"><span class="pre">/a/b/c</span><
   <div role="contentinfo">
     <p>
         &copy; Copyright 2009-2019 EPFL, Lausanne.
-      Last updated on Sep 17, 2019.
+      Last updated on Nov 12, 2019.
 
     </p>
   </div> 

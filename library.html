@@ -257,12 +257,27 @@ command line option.</td>
 <td>Use the inductive tactic when generating
 verification conditions.</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">&#64;ghost</span></code></td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">&#64;invariant</span></code></td>
+<td>Treat the annotated method as an invariant of the enclosing
+class. Can be used instead of <code class="docutils literal notranslate"><span class="pre">require</span></code> within a value class
+body. For soundness, invariants can only refer to fields of
+their class, and thus cannot call methods on <code class="docutils literal notranslate"><span class="pre">this</span></code>.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">&#64;ghost</span></code></td>
 <td>Drop the annotated field or method during compilation.
 See the <a class="reference internal" href="ghost.html"><span class="doc">corresponding section</span></a> for more
 information.</td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">&#64;ignore</span></code></td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">&#64;extern</span></code></td>
+<td>Only extract the contracts of a function, replacing
+its body by a <code class="docutils literal notranslate"><span class="pre">choose</span></code> expression.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">&#64;pure</span></code></td>
+<td>Specify that this function is pure, which will then
+be checked. If the function is also annotated with
+<code class="docutils literal notranslate"><span class="pre">&#64;extern</span></code>, it will not be checked, but assumed pure.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">&#64;ignore</span></code></td>
 <td>Ignore this definition when extracting Stainless trees.
 This annotation is useful to define functions
 that are not in Stainless’s language but will be
@@ -274,25 +289,16 @@ an external library, the JDK, or some other code which
 does not understand.
 See the corresponding <a class="reference internal" href="wrap.html"><span class="doc">documentation page</span></a>.</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">&#64;inline</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">&#64;inline</span></code></td>
 <td>Inline this function. Stainless will refuse to inline
 (mutually) recursive functions.</td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">&#64;inlineOnce</span></code></td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">&#64;inlineOnce</span></code></td>
 <td>Inline this function but only once, which is allowed
 even on (mutually) recursive functions.
 Note: A recursive function will not be inlined within itself.</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">&#64;extern</span></code></td>
-<td>Only extract the contracts of a function, replacing
-its body by a <code class="docutils literal notranslate"><span class="pre">choose</span></code> expression.</td>
-</tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">&#64;pure</span></code></td>
-<td>Specify that this function is pure, which will then
-be checked. If the function is also annotated with
-<code class="docutils literal notranslate"><span class="pre">&#64;extern</span></code>, it will not be checked, but assumed pure.</td>
-</tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">&#64;partialEval</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">&#64;partialEval</span></code></td>
 <td>Partially evaluate calls to this function.
 Note: <code class="docutils literal notranslate"><span class="pre">stainless.lang.partialEval</span></code> can also be used to
 partially evaluate an expression.</td>
@@ -637,7 +643,7 @@ for all elements of Set <code class="docutils literal notranslate"><span class="
   <div role="contentinfo">
     <p>
         &copy; Copyright 2009-2019 EPFL, Lausanne.
-      Last updated on Sep 20, 2019.
+      Last updated on Nov 12, 2019.
 
     </p>
   </div> 

@@ -333,6 +333,19 @@ which one can then import into their editor of choice to get started in a few st
 <li>The plugin <em>does not</em> support Scala 3 (dotty). To track sbt support in dotty you can follow <a class="reference external" href="https://github.com/epfl-lara/stainless/issues/178">issue #178</a>.</li>
 </ul>
 <p>Also, note that the plugin offers a <code class="docutils literal notranslate"><span class="pre">stainlessEnabled</span></code> setting that can help experimenting with Stainless. The <code class="docutils literal notranslate"><span class="pre">stainlessEnabled</span></code> setting is set to <code class="docutils literal notranslate"><span class="pre">true</span></code> by default, but you can flip the flag to false by typing <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">every</span> <span class="pre">stainlessEnabled</span> <span class="pre">:=</span> <span class="pre">false</span></code> while inside the sbt interactive shell.</p>
+<ol class="arabic simple" start="5">
+<li>It is possible to specify extra source dependencies to be added to the set of files processed by Stainless via the <code class="docutils literal notranslate"><span class="pre">stainlessExtraDeps</span></code> setting. For example, to add both the <code class="docutils literal notranslate"><span class="pre">stainless-algebra</span></code> and <code class="docutils literal notranslate"><span class="pre">stainless-actors</span></code> packages, along with the latter’s dependency on Akka,
+one can add the following settings to their build:</li>
+</ol>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="n">stainlessExtraDeps</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span>
+  <span class="s">&quot;ch.epfl.lara&quot;</span> <span class="o">%%</span> <span class="s">&quot;stainless-algebra&quot;</span> <span class="o">%</span> <span class="s">&quot;0.1.2&quot;</span><span class="o">,</span>
+  <span class="s">&quot;ch.epfl.lara&quot;</span> <span class="o">%%</span> <span class="s">&quot;stainless-actors&quot;</span>  <span class="o">%</span> <span class="s">&quot;0.1.1&quot;</span><span class="o">,</span>
+<span class="o">)</span>
+
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">&quot;com.typesafe.akka&quot;</span> <span class="o">%%</span> <span class="s">&quot;akka-actor&quot;</span> <span class="o">%</span> <span class="s">&quot;2.5.21&quot;</span>
+</pre></div>
+</div>
+<p>Note that the dependencies specified in <code class="docutils literal notranslate"><span class="pre">stainlessExtraDeps</span></code> must be available as a source JAR from any of the resolvers configured in the build.</p>
 </div>
 </div>
 <div class="section" id="external-solver-binaries">
@@ -504,7 +517,7 @@ type <code class="docutils literal notranslate"><span class="pre">make</span> <s
   <div role="contentinfo">
     <p>
         &copy; Copyright 2009-2019 EPFL, Lausanne.
-      Last updated on Sep 23, 2019.
+      Last updated on Nov 12, 2019.
 
     </p>
   </div> 

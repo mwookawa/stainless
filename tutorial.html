@@ -236,23 +236,63 @@ to. The web interface will display these results for us.</p>
 </pre></div>
 </div>
 <p>The code seems to work correctly on the example values.
-However, Stainless automatically finds that it is not correct,
-showing us a counter-example inputs, such as</p>
-<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">-&gt;</span> <span class="o">-</span><span class="mi">1639624704</span>
-<span class="n">y</span> <span class="o">-&gt;</span> <span class="mi">1879048192</span>
+However, Stainless automatically finds that it is not correct:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[  Info  ]  - Now solving &#39;postcondition&#39; VC for max @6:16...
+[  Info  ]  - Result for &#39;postcondition&#39; VC for max @6:16:
+[Warning ]  =&gt; INVALID
+[Warning ] Found counter-example:
+[Warning ]   y: Int -&gt; 2147483647
+[Warning ]   x: Int -&gt; -2147483648
+
+[  Info  ]  - Now solving &#39;postcondition&#39; VC for max @7:10...
+[  Info  ]  - Result for &#39;postcondition&#39; VC for max @7:10:
+[Warning ]  =&gt; INVALID
+[Warning ] Found counter-example:
+[Warning ]   y: Int -&gt; -2147483648
+[Warning ]   x: Int -&gt; 1
+
+[  Info  ]  - Now solving &#39;body assertion: Subtraction overflow&#39; VC for max @5:13...
+[  Info  ]  - Result for &#39;body assertion: Subtraction overflow&#39; VC for max @5:13:
+[Warning ]  =&gt; INVALID
+[Warning ] Found counter-example:
+[Warning ]   y: Int -&gt; -2147483648
+[Warning ]   x: Int -&gt; 0
 </pre></div>
 </div>
+<p>Here, Stainless emits three distinct verification conditions:</p>
+<ul class="simple">
+<li>One which corresponds to the postcondition of <code class="docutils literal notranslate"><span class="pre">max</span></code> when we take the <cite>then</cite> branch
+of the <code class="docutils literal notranslate"><span class="pre">if</span></code> statement, on line 6.</li>
+<li>Another one for the postcondition of <code class="docutils literal notranslate"><span class="pre">max</span></code> when we take the <cite>else</cite> branch
+of the <code class="docutils literal notranslate"><span class="pre">if</span></code> statement, on line 7.</li>
+<li>A last one with an overflow check for the subtraction on line 5.</li>
+</ul>
+<p>Let us look at the first verification condition:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> - Now solving &#39;postcondition&#39; VC for max @6:16...
+ - Result for &#39;postcondition&#39; VC for max @6:16:
+ =&gt; INVALID
+Found counter-example:
+  y: Int -&gt; 2147483647
+  x: Int -&gt; -2147483648
+</pre></div>
+</div>
+<p>Stainless tells us that it found two input for which the <code class="docutils literal notranslate"><span class="pre">ensuring</span></code> clause of the
+<code class="docutils literal notranslate"><span class="pre">max</span></code> function evaluates to <code class="docutils literal notranslate"><span class="pre">false</span></code>. The second verification is similar.</p>
 <p>We may wish to define a test method</p>
 <div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="n">test4</span> <span class="k">=</span> <span class="n">max</span><span class="o">(-</span><span class="mi">1639624704</span><span class="o">,</span> <span class="mi">1879048192</span><span class="o">)</span>
 </pre></div>
 </div>
-<p>whose evaluation indeed results in <cite>ensuring</cite> condition being violated.
+<p>whose evaluation indeed results in <code class="docutils literal notranslate"><span class="pre">ensuring</span></code> condition being violated.
 The problem is due to overflow of 32-bit integers, due to which
 the value <cite>d</cite> becomes positive, even though <cite>x</cite> is negative and thus smaller than
-the large positive value <cite>y</cite>.
-As in Scala, the <cite>Int</cite> type denotes 32-bit
-integers with the usual signed arithmetic operations from
-computer architecture and the JVM specification.</p>
+the large positive value <cite>y</cite>.</p>
+<p>In fact, Stainless alerts us of this very problem in the third verification condition,
+to help us pin point the place where the overflow occured.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">As in Scala, the <cite>Int</cite> type denotes 32-bit integers with the usual signed arithmetic
+operations from computer architecture and the JVM specification.</p>
+</div>
 <p>To use unbounded integers, we simply change the types to
 <cite>BigInt</cite>, obtaining a program that verifies (and, as
 expected, passes all the test cases).</p>
@@ -324,7 +364,22 @@ non-negative 32-bit integers as inputs.</p>
 <p><strong>Question:</strong> What if we restrict the inputs to <cite>max</cite> to be
 <cite>a)</cite> non-positive, or <cite>b)</cite> strictly negative? Modify the
 <cite>require</cite> clause for each case accordingly and explain the
-behavior of Stainless.</p>
+behavior of Stainless. See the note below, as well.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>By default, Stainless will emit verification conditions to
+check that arithmetic operations on sized integers such as
+<cite>Int</cite> cannot overflow. To opt-out of this behavior, eg. when
+such wrapping semantics are desired, one can wrap the offending
+expression in a call to <cite>stainless.math.wrapping</cite>:</p>
+<div class="last highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">import</span> <span class="nn">stainless.math.wrapping</span>
+
+<span class="k">def</span> <span class="n">doubleOverflow</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">{</span>
+   <span class="n">wrapping</span> <span class="o">{</span> <span class="n">x</span> <span class="o">+</span> <span class="n">x</span> <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
 <p>In the sequel, we will mostly use <cite>BigInt</cite> types.</p>
 </div>
 <div class="section" id="defining-lists-and-their-properties">
@@ -507,7 +562,7 @@ documentation and browse the examples provided with Stainless.</p>
   <div role="contentinfo">
     <p>
         &copy; Copyright 2009-2019 EPFL, Lausanne.
-      Last updated on Sep 23, 2019.
+      Last updated on Nov 12, 2019.
 
     </p>
   </div> 
