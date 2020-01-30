@@ -197,9 +197,6 @@ By default, <code class="docutils literal notranslate"><span class="pre">--verif
 <li><p class="first"><code class="docutils literal notranslate"><span class="pre">--verification</span></code></p>
 <p>Proves or disproves function contracts, as explained in the <a class="reference internal" href="verification.html"><span class="doc">Verification</span></a> section.</p>
 </li>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">--termination</span></code></p>
-<p>Runs termination analysis. Can be used along <code class="docutils literal notranslate"><span class="pre">--verification</span></code>.</p>
-</li>
 <li><p class="first"><code class="docutils literal notranslate"><span class="pre">--eval</span></code></p>
 <p>Evaluate parameterless functions and report their body’s value and whether
 or not their postcondition holds.</p>
@@ -220,6 +217,12 @@ interactive and significantly more efficient than restarting stainless manually.
 <li><p class="first"><code class="docutils literal notranslate"><span class="pre">--compact</span></code></p>
 <p>Reduces the components’ summaries to only the invalid elements (e.g. invalid VC).</p>
 </li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">--infer-measures=[yes|no|only]</span> <span class="pre">(default:</span> <span class="pre">yes)</span></code></p>
+<p>Infers measures for recursive functions which do not already have one.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">--check-measures=[true|false]</span> <span class="pre">(default:</span> <span class="pre">true)</span></code></p>
+<p>Check termination of functions with measures, ie. whether measures decrease between recursive calls.</p>
+</li>
 <li><p class="first"><code class="docutils literal notranslate"><span class="pre">--debug=d1,d2,...</span></code></p>
 <p>Enables printing detailed messages for the components d1,d2,… .
 Available components are:</p>
@@ -229,6 +232,10 @@ Available components are:</p>
 <li><code class="docutils literal notranslate"><span class="pre">timers</span></code> (Timers, timer pools)</li>
 <li><code class="docutils literal notranslate"><span class="pre">trees</span></code> (Manipulation of trees)</li>
 <li><code class="docutils literal notranslate"><span class="pre">verification</span></code> (Verification)</li>
+<li><code class="docutils literal notranslate"><span class="pre">full-vc</span></code> (Display VCs before and after simplification)</li>
+<li><code class="docutils literal notranslate"><span class="pre">type-checker</span></code> (Type checking of the final program for VC generation)</li>
+<li><code class="docutils literal notranslate"><span class="pre">type-checker-vcs</span></code> (Generation of VCs by the type-checker)</li>
+<li><code class="docutils literal notranslate"><span class="pre">derivation</span></code> (Dump typing derivations)</li>
 </ul>
 </li>
 <li><p class="first"><code class="docutils literal notranslate"><span class="pre">--functions=f1,f2,...</span></code></p>
@@ -436,7 +443,7 @@ from <code class="docutils literal notranslate"><span class="pre">/a/b/c</span><
   <div role="contentinfo">
     <p>
         &copy; Copyright 2009-2019 EPFL, Lausanne.
-      Last updated on Jan 20, 2020.
+      Last updated on Jan 30, 2020.
 
     </p>
   </div> 

@@ -823,8 +823,7 @@ propositions using Stainless is related to <em>termination checking</em>.  When
 verifying inductive proofs (and more generally the postconditions of
 recursive methods), Stainless assumes that the corresponding proofs are
 <em>well-founded</em>, or equivalently, that the corresponding recursive
-methods terminate on all inputs.  Yet Stainless does not – by default –
-check that this is the case.  It is thus possible – and indeed rather
+methods terminate on all inputs.  It is thus possible – and indeed rather
 easy – to write bogus proofs (intentionally or accidentally) which
 Stainless recognizes as valid, but which are not well-founded.  Consider
 the following lemma, which apparently establishes that all lists are
@@ -849,9 +848,11 @@ empty:</p>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>Stainless has support for termination checking, which can be
-enabled using the <code class="docutils literal notranslate"><span class="pre">--termination</span></code> command line option to minimize
-the risk of accidentally writing bogus proofs such as the one above.</p>
+<p>Stainless hences performs termination checking by default to minimize
+the risk of accidentally writing bogus proofs such as the one above.
+It will thus emit a warning if it cannot prove that a function terminates, or
+if it can show that its measure (inferred or user-defined) does not decreases between
+recursive calls.</p>
 </div>
 </div>
 <div class="section" id="techniques-for-proving-non-trivial-postconditions">
@@ -1105,7 +1106,7 @@ countable and <span class="math notranslate nohighlight">\(\mathcal{P}(A)\)</spa
   <div role="contentinfo">
     <p>
         &copy; Copyright 2009-2019 EPFL, Lausanne.
-      Last updated on Jan 20, 2020.
+      Last updated on Jan 30, 2020.
 
     </p>
   </div> 
