@@ -40,6 +40,7 @@ object VCKind {
   case object Law                           extends VCKind("law", "law")
   case object InvariantSat                  extends VCKind("invariant satisfiability", "inv. sat")
   case class  AssertErr(err: String)        extends VCKind("body assertion: " + err, "assert.")
+  case object CoqMethod                     extends VCKind("coq function", "coq fun.")
   case class  Error(err: String)            extends VCKind(err, "error")
   case class  AdtInvariant(inv: Identifier) extends VCKind("adt invariant", "adt inv.")
 
@@ -75,6 +76,7 @@ object VCStatus {
   case object Cancelled extends VCStatus[Nothing]("cancelled")
   case object Crashed extends VCStatus[Nothing]("crashed")
   case object Unsupported extends VCStatus[Nothing]("unsupported")
+  case object ExternalBug extends VCStatus[Nothing]("external bug")
 }
 
 case class VCResult[+Model](

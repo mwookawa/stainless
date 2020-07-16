@@ -279,7 +279,7 @@ trait TypeChecker {
 
   def checkTypes(tc: TypingContext, exprs: Seq[Expr], types: Seq[Type]): TyperResult = {
     exprs.zip(types).foldLeft(TyperResult.valid){
-      case (tr, (e,tpe)) => tr ++ checkType(tc, e, tpe)
+      case (tr, (e, tpe)) => tr ++ checkType(tc, e, tpe)
     }
   }
 
@@ -299,7 +299,7 @@ trait TypeChecker {
   }
 
   def checkDependentTypes(tc: TypingContext, exprs: Seq[Expr], types: Seq[ValDef]): TyperResult = {
-    exprs.zip(types).foldLeft((tc, new Freshener(immutable.Map()), TyperResult.valid)){
+    exprs.zip(types).foldLeft((tc, new Freshener(immutable.Map()), TyperResult.valid)) {
       case ((tcAcc, freshener, tr), (e, vd)) =>
         val freshVd = freshener.transform(vd)
         val (newTc, oldId, newId) = tcAcc.freshBindWithValue(freshVd, e)
@@ -1050,15 +1050,12 @@ trait TypeChecker {
         val (tc2, freshener) = tc.freshBindWithValues(Seq(vd), Seq(e))
         checkType(tc, e, vd.tpe) ++ checkType(tc2, freshener.transform(prop), TrueBoolean())
 
-      case (_, TupleType(ts)) =>
-        val projections = (1 to ts.length).toSeq.map(i => TupleSelect(e, i))
-        checkTypes(tc, projections, ts)
+      case (Tuple(es), TupleType(tps)) =>
+        checkTypes(tc, es, tps)
 
-      case (_, SigmaType(from, to)) =>
-        val projections = (1 to from.length).toSeq.map(i => TupleSelect(e, i))
-        val last = TupleSelect(e, from.length + 1)
-        checkDependentTypes(tc, projections, from) ++
-        checkType(tc.bindWithValues(from, projections), last, to)
+      case (Tuple(es), SigmaType(from, to)) =>
+        checkDependentTypes(tc, es.init, from) ++
+        checkType(tc.bindWithValues(from, es.init), es.last, to)
 
       case (_, PiType(from, to)) =>
         checkType(tc.bind(from), Application(e, from.map(_.toVariable)), to)
@@ -1109,8 +1106,13 @@ trait TypeChecker {
         val (inferredType, vcs) = inferType(tc, e)
         if (tpe == stripRefinementsAndAnnotations(inferredType))
           vcs
-        else
-          reporter.fatalError(e.getPos, s"Inferred type ${inferredType.asString} for ${e.asString}, which does not match ${tpe.asString}")
+        else {
+          val vd = ValDef.fresh("x", inferredType)
+          isSubtype(tc.setPos(e),
+            RefinementType(vd, Equals(vd.toVariable, e)),
+            tpe
+          )
+        }
     }
     reporter.debug(s"\n${tc0.indent}Checked that: ${e.asString} (${e.getPos})")
     reporter.debug(s"${tc0.indent}has type: ${tpe.asString}")
@@ -1120,14 +1122,32 @@ trait TypeChecker {
   }
 
   /** The `isSubtype` function simply calls `checkType` */
-  def isSubtype(tc0: TypingContext, t1: Type, t2: Type): TyperResult = {
-    reporter.debug(s"\n${tc0.indent}Checking that: ${t1.asString}")
-    reporter.debug(s"${tc0.indent}is a subtype of: ${t2.asString}")
+  def isSubtype(tc0: TypingContext, tp1: Type, tp2: Type): TyperResult = {
+    reporter.debug(s"\n${tc0.indent}Checking that: ${tp1.asString}")
+    reporter.debug(s"${tc0.indent}is a subtype of: ${tp2.asString}")
     reporter.debug(s"${tc0.indent}in context:")
     reporter.debug(tc0.asString(tc0.indent))
     val tc = tc0.inc
-    val vd = ValDef.fresh("__subtypeCheck", t1)
-    checkType(tc.bind(vd), vd.toVariable, t2).root(IsSubtype(tc, t1, t2))
+    if (tp1 == tp2) TyperResult.valid
+    else (tp1, tp2) match {
+      case (TupleType(tps1), TupleType(tps2)) =>
+        TyperResult(tps1.zip(tps2).map {
+          case (ty1, ty2) => isSubtype(tc, ty1, ty2)
+        })
+
+      case (RefinementType(vd1, prop1), RefinementType(vd2, prop2)) if (vd1.tpe == vd2.tpe) =>
+        buildVC(tc.bind(vd1).withTruth(prop1), renameVar(prop2, vd2.id, vd1.id))
+
+      case (RefinementType(vd, prop), _) =>
+        isSubtype(tc, vd.tpe, tp2)
+
+      case (_, RefinementType(vd, prop)) if vd.tpe == tp1 =>
+        buildVC(tc, prop)
+
+      // TODO: implement other subtyping rules
+      case (_, _) =>
+        reporter.fatalError(tc.getPos, s"Could not check that ${tp1.asString} is a subtype of ${tp2.asString}")
+    }
   }
 
   /** The `areEqualTypes` checks the subtyping relation in both directions */
