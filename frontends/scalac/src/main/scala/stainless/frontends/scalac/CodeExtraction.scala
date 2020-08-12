@@ -410,7 +410,7 @@ trait CodeExtraction extends ASTExtractors {
     var methods: Seq[xt.FunDef]      = Seq.empty
     var typeMembers: Seq[xt.TypeDef] = Seq.empty
 
-    for (d <- cd.impl.body) d match {
+    for ((d, i) <- cd.impl.body.zipWithIndex) d match {
       case EmptyTree =>
         // ignore
 
@@ -440,7 +440,8 @@ trait CodeExtraction extends ASTExtractors {
         methods :+= extractFunction(fsym, tparams, vparams, rhs)(defCtx)
 
       case t @ ExFieldDef(fsym, _, rhs) =>
-        methods :+= extractFunction(fsym, Seq.empty, Seq.empty, rhs)(defCtx)
+        val fd = extractFunction(fsym, Seq.empty, Seq.empty, rhs)(defCtx)
+        methods :+= fd.copy(flags = fd.flags :+ xt.FieldDefPosition(i))
 
       case t @ ExLazyFieldDef(fsym, _, rhs) =>
         methods :+= extractFunction(fsym, Seq.empty, Seq.empty, rhs)(defCtx)
@@ -814,7 +815,8 @@ trait CodeExtraction extends ASTExtractors {
       case v @ ValDef(_, name, tpt, _) => (v.symbol, name, tpt)
     }.foldLeft((Map.empty[Symbol, xt.ValDef], fctx)) { case ((vds, dctx), (sym, name, tpt)) =>
       if (!sym.isMutable) {
-        val vd = xt.ValDef(FreshIdentifier(name.toString), extractType(tpt)(dctx), annotationsOf(sym, ignoreOwner = true)).setPos(sym.pos)
+        val laziness = if (sym.isLazy) Some(xt.Lazy) else None
+        val vd = xt.ValDef(FreshIdentifier(name.toString), extractType(tpt)(dctx), annotationsOf(sym, ignoreOwner = true) ++ laziness).setPos(sym.pos)
         (vds + (sym -> vd), dctx.withNewVar(sym, () => vd.toVariable))
       } else {
         val vd = xt.VarDef(FreshIdentifier(name.toString), extractType(tpt)(dctx), annotationsOf(sym, ignoreOwner = true)).setPos(sym.pos)

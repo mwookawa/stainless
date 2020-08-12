@@ -430,7 +430,7 @@ class CodeExtraction(inoxCtx: inox.Context, cache: SymbolsContext)(implicit val 
     var typeMembers: Seq[xt.TypeDef] = Seq.empty
 
     // We collect the methods and fields
-    for (d <- template.body) d match {
+    for ((d, i) <- template.body.zipWithIndex) d match {
       case tpd.EmptyTree =>
         // ignore
 
@@ -484,7 +484,12 @@ class CodeExtraction(inoxCtx: inox.Context, cache: SymbolsContext)(implicit val 
         methods :+= extractFunction(fsym, dd, tparams, vparams, rhs)(defCtx)
 
       case t @ ExFieldDef(fsym, _, rhs) =>
-        methods :+= extractFunction(fsym, t, Seq.empty, Seq.empty, rhs)(defCtx)
+        val fd = extractFunction(fsym, t, Seq.empty, Seq.empty, rhs)(defCtx)
+        // this case split doesn't appear to be necessary in scalac extraction (always false?)
+        if (fsym is Lazy)
+          methods :+= fd.copy(flags = fd.flags)
+        else
+          methods :+= fd.copy(flags = fd.flags :+ xt.FieldDefPosition(i))
 
       case t @ ExFieldAccessorFunction(fsym, _, vparams, rhs) if flags.contains(xt.IsAbstract) =>
         methods :+= extractFunction(fsym, t, Seq.empty, vparams, rhs)(defCtx)
@@ -891,7 +896,8 @@ class CodeExtraction(inoxCtx: inox.Context, cache: SymbolsContext)(implicit val 
         val vd = xt.VarDef(FreshIdentifier(name.toString), extractType(tpt)(dctx), annotationsOf(sym, ignoreOwner = true)).setPos(sym.pos)
         (vds + (sym -> vd), dctx.withNewMutableVar((sym, () => vd.toVariable)))
       } else {
-        val vd = xt.ValDef(FreshIdentifier(name.toString), extractType(tpt)(dctx), annotationsOf(sym, ignoreOwner = true)).setPos(sym.pos)
+        val laziness = if (sym is Lazy) Some(xt.Lazy) else None
+        val vd = xt.ValDef(FreshIdentifier(name.toString), extractType(tpt)(dctx), annotationsOf(sym, ignoreOwner = true) ++ laziness).setPos(sym.pos)
         (vds + (sym -> vd), dctx.withNewVar((sym, () => vd.toVariable)))
       }
     }
